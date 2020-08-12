@@ -11,6 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'lista-estado',
+    loadChildren: () => import('./features/localizacao/lista-estado/lista-estado.module').then( m => m.ListaEstadoPageModule)
+  },
+  {
+    path: 'lista-cidade',
+    loadChildren: () => import('./features/localizacao/lista-cidade/lista-cidade.module').then( m => m.ListaCidadePageModule)
+  },
+  {
+    path: 'lista-estabelecimento',
+    loadChildren: () => import('./features/estabelecimento/lista-estabelecimento/lista-estabelecimento.module').then( m => m.ListaEstabelecimentoPageModule)
+  },
 ];
 
 @NgModule({

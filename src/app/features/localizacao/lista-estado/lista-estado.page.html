@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Selecione o estado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-searchbar placeholder="Pesquisar" (ionInput)="filtrar($event)">
+    </ion-searchbar>
+
+    <ion-item *ngFor="let estado of estados" (click)="onClick(estado)">
+      <ion-avatar slot="start">
+        <img src="https://www.gravatar.com/avatar/1?d=monsterid&f=y" />
+      </ion-avatar>
+
+      <h4>{{estado.sigla}} - {{estado.nome}}</h4>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+
+

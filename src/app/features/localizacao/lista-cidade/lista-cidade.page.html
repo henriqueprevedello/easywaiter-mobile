@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Selecione a cidade</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list>
+    <ion-searchbar placeholder="Pesquisar" (ionInput)="filtrar($event)">
+    </ion-searchbar>
+
+    <ion-item *ngFor="let cidade of cidades" (click)="onClick(cidade)">
+      <ion-avatar slot="start">
+        <img src="https://www.gravatar.com/avatar/1?d=monsterid&f=y" />
+      </ion-avatar>
+
+      <h4>{{cidade.name}}</h4>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollInfinito($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Carregando cidades..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
