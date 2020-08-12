@@ -1,0 +1,7 @@
+{
+  "name": "easywaiter-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
