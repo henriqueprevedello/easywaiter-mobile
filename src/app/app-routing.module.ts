@@ -23,6 +23,22 @@ const routes: Routes = [
     path: 'lista-estabelecimento',
     loadChildren: () => import('./features/estabelecimento/lista-estabelecimento/lista-estabelecimento.module').then( m => m.ListaEstabelecimentoPageModule)
   },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./features/usuario/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'contato',
+    loadChildren: () => import('./features/contato/contato.module').then( m => m.ContatoPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./features/usuario/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'registro',
+    loadChildren: () => import('./features/usuario/registro/registro.module').then( m => m.RegistroPageModule)
+  },
 ];
 
 @NgModule({

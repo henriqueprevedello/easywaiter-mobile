@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-cidade',
@@ -15,10 +16,10 @@ export class ListaCidadePage implements OnInit {
   start = 0;
   reActiveInfinite: any;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  onClick(cidade: any) {
-    debugger;
+  onClick(estado: any) {
+    this.router.navigate(['/lista-estabelecimento'])
   }
 
   ngOnInit() {

@@ -1,9 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>lista-estabelecimento</ion-title>
+    <ion-title>Selecione o estabelecimento</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-list>
+    <ion-searchbar placeholder="Pesquisar" (ionInput)="filtrar($event)">
+    </ion-searchbar>
+
+    <ion-item *ngFor="let estabelecimento of estabelecimentos" (click)="onClick(estabelecimento)">
+      <ion-avatar slot="start">
+        <img src="https://www.gravatar.com/avatar/1?d=monsterid&f=y" />
+      </ion-avatar>
+
+      <h4>{{estabelecimento.name}}</h4>
+      
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollInfinito($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Carregando estabelecimentos..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

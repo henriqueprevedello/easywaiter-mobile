@@ -1,0 +1,29 @@
+ion-content {
+  position: relative;
+}
+
+.vertical-center {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#button-login {
+  margin: 30px 5px;
+}
+
+ion-item {
+  margin: 10px 5px;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.cadastro {
+  text-align: center;
+  width: 100%;
+}
