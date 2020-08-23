@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'registro',
     loadChildren: () => import('./features/usuario/registro/registro.module').then( m => m.RegistroPageModule)
   },
+  {
+    path: 'identificacao-mesa',
+    loadChildren: () => import('./features/estabelecimento/identificacao-mesa/identificacao-mesa.module').then( m => m.IdentificacaoMesaPageModule)
+  },
 ];
 
 @NgModule({
