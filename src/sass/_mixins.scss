@@ -1,0 +1,29 @@
+@mixin font-calibri($size: false, $color: false, $weight: false, $calibriLight: false) {
+    font-family: if($calibriLight, 'Calibri-light', 'Calibri');
+
+    @if $size {
+        font-size: $size;
+    }
+    @if $color {
+        color: $color;
+    }
+    @if $weight {
+        font-weight: $weight;
+    }
+}
+
+@mixin alinhar-centro-tela() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin centralizar-verticalmente() {
+    display: flex;
+    align-items: center;
+}
+
+@mixin centralizar-horizontalmente() {
+    display: flex;
+    justify-content: center;
+}

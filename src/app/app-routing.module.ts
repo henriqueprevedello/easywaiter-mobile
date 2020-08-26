@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'identificacao-mesa',
     loadChildren: () => import('./features/estabelecimento/identificacao-mesa/identificacao-mesa.module').then( m => m.IdentificacaoMesaPageModule)
   },
+  {
+    path: 'estabelecimento',
+    loadChildren: () => import('./features/estabelecimento/estabelecimento/estabelecimento.module').then( m => m.EstabelecimentoPageModule)
+  },
 ];
 
 @NgModule({
