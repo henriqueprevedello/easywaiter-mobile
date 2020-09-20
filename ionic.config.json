@@ -1,7 +1,8 @@
 {
   "name": "easywaiter-mobile",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
