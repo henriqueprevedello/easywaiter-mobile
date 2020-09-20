@@ -47,6 +47,10 @@ const routes: Routes = [
     path: 'estabelecimento',
     loadChildren: () => import('./features/estabelecimento/estabelecimento/estabelecimento.module').then( m => m.EstabelecimentoPageModule)
   },
+  {
+    path: 'carrinho',
+    loadChildren: () => import('./features/carrinho/carrinho/carrinho.module').then( m => m.CarrinhoPageModule)
+  },
 ];
 
 @NgModule({

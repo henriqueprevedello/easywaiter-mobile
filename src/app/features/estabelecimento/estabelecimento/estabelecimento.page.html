@@ -1,108 +1,104 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>estabelecimento</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>
-      Recent Conversations
-    </ion-list-header>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="abrirCarrinho()" #cart>
+      <div class="cart-length">{{ quantidadeItensCarrinho | async }}</div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-finn.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Finn</h2>
-        <h3>I'm a big deal</h3>
-        <p>Listen, I've had a pretty messed up day...</p>
-      </ion-label>
-    </ion-item>
+  <div class="container">
+    <div class="container-item">
+      <div>
+        <img
+          class="imagem-estabelecimento"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/McDonald%27s_logo.svg/792px-McDonald%27s_logo.svg.png"
+        />
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-han.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Han</h2>
-        <h3>Look, kid...</h3>
-        <p>I've got enough on my plate as it is, and I...</p>
-      </ion-label>
-    </ion-item>
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>McDonald's</ion-card-title>
+        </ion-card-header>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-rey.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Rey</h2>
-        <h3>I can handle myself</h3>
-        <p>You will remove these restraints and leave...</p>
-      </ion-label>
-    </ion-item>
+        <ion-card-content class="ion-text-center">
+          Founded in 1829 on an isthmus between Lake Monona and Lake Mendota.
+        </ion-card-content>
+      </div>
+    </div>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-luke.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Luke</h2>
-        <h3>Your thoughts betray you</h3>
-        <p>I feel the good in you, the conflict...</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+    <hr />
 
-  <ion-list>
-    <ion-list-header>
-      Online
-    </ion-list-header>
+    <div class="container-cardapio" *ngIf="listaCardapio">
+      <ion-list *ngFor="let cardapio of listaCardapio">
+        <ion-list-header> {{ cardapio.titulo }} </ion-list-header>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-poe.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Poe</h2>
-        <h3>New Ride</h3>
-        <p>I just upgraded my X-Wing. Next time...</p>
-      </ion-label>
-      <ion-button slot="end">Teste</ion-button>
-    </ion-item>
+        <ion-card *ngFor="let item of cardapio.itens">
+          <ion-row>
+            <ion-col size="3">
+              <ion-img src="{{ item.imagem }}"></ion-img>
+            </ion-col>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-ben.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Ben</h2>
-        <h3>Move Along</h3>
-        <p>These aren't the droids you're looking for...</p>
-      </ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-leia.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Leia</h2>
-        <h3>You're My Only Hope</h3>
-        <p>I've placed information vital to the survival...</p>
-      </ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./avatar-yoda.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>Yoda</h2>
-        <h3>Size matters not</h3>
-        <p>Do or do not. There is no try...</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+            <ion-col size="9">
+              <ion-card-content>
+                <ion-row class="ion-align-items-center">
+                  <ion-col size="8">
+                    <ion-card-title>{{ item.nome }}</ion-card-title>
+                    <ion-label>
+                      <p>{{ item.descricao }}</p>
+                    </ion-label>
+                  </ion-col>
+                  <ion-col size="4" class="ion-text-right">
+                    <ion-label color="secondary">
+                      <b> {{ item.valor | currency: 'R$' }}</b>
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="ion-align-items-center">
+                  <ion-col size="8"> </ion-col>
+                  <ion-col size="4" class="ion-text-right">
+                    <ion-button
+                      fill="clear"
+                      (click)="adicionarAoCarrinho({cardapioItem: item, quantidade: 1})"
+                    >
+                      <ion-icon name="add"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-list>
+    </div>
+  </div>
 </ion-content>
+
+<!-- 
+  <ion-list>
+  <ion-card *ngFor="let p of products">
+    <ion-card-header>
+      <ion-card-title>{{ p.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="8">
+          <ion-label color="secondary">
+            <b> {{ p.price | currency: 'USD' }}</b>
+          </ion-label>
+        </ion-col>
+        <ion-col size="4" class="ion-text-right">
+          <ion-button  fill="clear" (click)="addToCart(p)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-list>
+-->
