@@ -1,6 +1,6 @@
-import { CardapioItem } from './cardapio-item';
+import { Produto } from './produto';
 
 export interface CardapioCategoria {
     titulo: string;
-    itens: Array<CardapioItem>;
+    itens: Array<Produto>;
 }

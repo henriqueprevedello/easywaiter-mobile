@@ -1,6 +1,7 @@
-import { CardapioItem } from './cardapio-item';
+import { Produto } from './produto';
 
 export interface CarrinhoItem {
-    cardapioItem: CardapioItem;
+    produto: Produto;
+    observacao: string;
     quantidade: number;
 }

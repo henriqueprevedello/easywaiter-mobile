@@ -1,0 +1,18 @@
+ion-title {
+  line-height: 100%;
+}
+
+.quantidade {
+  color: mediumspringgreen;
+  font-size: 1.4em;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 40px);
+}
+
+.botao-pedir {
+    margin: 20px ;
+}

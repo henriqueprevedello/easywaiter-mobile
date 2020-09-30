@@ -51,6 +51,10 @@ const routes: Routes = [
     path: 'carrinho',
     loadChildren: () => import('./features/carrinho/carrinho/carrinho.module').then( m => m.CarrinhoPageModule)
   },
+  {
+    path: 'item-pedido-modal',
+    loadChildren: () => import('./features/estabelecimento/item-pedido-modal/item-pedido-modal.module').then( m => m.ItemPedidoModalPageModule)
+  },
 ];
 
 @NgModule({

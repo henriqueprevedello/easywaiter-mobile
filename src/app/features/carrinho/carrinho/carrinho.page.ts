@@ -1,52 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import {  CarrinhoService } from 'src/app/core/services/carrinho.service';
-import { ModalController } from '@ionic/angular';
-import { CarrinhoItem } from 'src/app/models/carrinho-item';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-
+import { Component, OnInit } from "@angular/core";
+import { ModalController } from "@ionic/angular";
+import { CarrinhoItem } from "src/app/models/carrinho-item";
+import { Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { StorageService } from "src/app/core/services/storage.service";
 
 @Component({
-  selector: 'app-carrinho',
-  templateUrl: './carrinho.page.html',
-  styleUrls: ['./carrinho.page.scss'],
+  selector: "app-carrinho",
+  templateUrl: "./carrinho.page.html",
+  styleUrls: ["./carrinho.page.scss"],
 })
 export class CarrinhoPage implements OnInit {
+  carrinho: Array<CarrinhoItem> = [];
 
-carrinho: Array<CarrinhoItem> = [];
-
-  constructor(private carrinhoService: CarrinhoService, private modalController: ModalController, private location: Location) { }
+  constructor(
+    private storageService: StorageService,
+    private modalController: ModalController,
+    private location: Location
+  ) {}
 
   ngOnInit() {
-    this.carrinho = this.carrinhoService.registros;
+    this.storageService.get().then((itens) => {debugger;this.carrinho = itens}).catch(aa=>{debugger;}).finally(()=>{debugger;});
   }
 
-  decreaseCartItem(product){
-    this.carrinhoService.diminuirQuantidade(product);
+  adicionar(carrinhoItem: CarrinhoItem) {
+    this.storageService.add(carrinhoItem);
   }
 
-  increaseCartItem(product){
-    this.carrinhoService.adicionar(product);
+  getTotal() {
+    return this.carrinho.reduce(
+      (i, j) => i + j.produto.valor * j.quantidade,
+      0
+    );
   }
 
-  removeCartItem(product){
-    this.carrinhoService.remover(product)
-  }
-
-  getTotal(){
-    return this.carrinho.reduce((i, j) => i + j.cardapioItem.valor * j.quantidade, 0);
-  }
-
-  close(){
+  close() {
     this.modalController.dismiss();
   }
 
-  voltarPagina(){
-    this.location.back()
+  voltarPagina() {
+    this.location.back();
   }
 
-  checkout(){
-    
+  limparCarrinho(){
+    this.storageService.clear().then(itens => (this.carrinho = itens));
   }
 
+  realizarPedido() {}
 }

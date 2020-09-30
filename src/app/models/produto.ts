@@ -1,4 +1,4 @@
-export interface CardapioItem {
+export interface Produto {
     id: number;
     nome: string;
     descricao: string;

@@ -1,22 +1,33 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 import { CardapioCategoria } from "src/app/models/cardapio-categoria";
+import { BehaviorSubject, Observable } from "rxjs";
+import { CarrinhoItem } from "src/app/models/carrinho-item";
+import { Router } from "@angular/router";
+import { StorageService } from "src/app/core/services/storage.service";
 import { ModalController } from "@ionic/angular";
-import { CarrinhoService } from "src/app/core/services/carrinho.service";
-import { BehaviorSubject } from "rxjs";
-import { CarrinhoPage } from '../../carrinho/carrinho/carrinho.page';
-import { CarrinhoItem } from 'src/app/models/carrinho-item';
-import { Router } from '@angular/router';
+import { ItemPedidoModalPage } from "../item-pedido-modal/item-pedido-modal.page";
+import { Produto } from "src/app/models/produto";
+import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-estabelecimento",
   templateUrl: "./estabelecimento.page.html",
   styleUrls: ["./estabelecimento.page.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EstabelecimentoPage implements OnInit {
+export class EstabelecimentoPage implements OnInit, AfterViewInit {
   @ViewChild("cart", { static: false, read: ElementRef }) fab: ElementRef;
 
-  carrinho = [];
-  quantidadeItensCarrinho: BehaviorSubject<number>;
+  carrinho: Array<CarrinhoItem> = [];
+  carrinhoLength$: Observable<number>;
   listaCardapio: Array<CardapioCategoria> = [
     {
       titulo: "Bebidas",
@@ -95,21 +106,40 @@ export class EstabelecimentoPage implements OnInit {
   ];
 
   constructor(
-    private carrinhoService: CarrinhoService,
-    private modalCtrl: ModalController,
-    private router: Router
+    private storageService: StorageService,
+    private modalController: ModalController,
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.carrinho = this.carrinhoService.registros;
-    this.quantidadeItensCarrinho = this.carrinhoService.quantidadeItens;
+    this.storageService.get().then((itens) => {
+      this.carrinho = itens;
+      this.carrinhoLength$ = this.storageService.carrinhoLength$().pipe(
+        tap(() => {
+          debugger;
+          this.changeDetectorRef.detectChanges();
+        })
+      );
+      debugger;
+    });
   }
 
-  adicionarAoCarrinho(item: CarrinhoItem) {
-    this.carrinhoService.adicionar(item);
+  ngAfterViewInit() {
+    debugger;
+  }
+
+  async adicionarAoCarrinho(produto: Produto) {
+    const modal = await this.modalController.create({
+      component: ItemPedidoModalPage,
+      cssClass: "modal-padrao",
+      componentProps: { produto: produto },
+    });
+
+    return await modal.present();
   }
 
   async abrirCarrinho() {
-    this.router.navigate(['carrinho']);
+    this.router.navigate(["carrinho"]);
   }
 }
