@@ -15,11 +15,11 @@
         />
 
         <ion-card-header class="text-center">
-          <ion-card-title>McDonald's</ion-card-title>
+          <ion-card-title>{{ estabelecimento.nome }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content class="text-center">
-          Founded in 1829 on an isthmus between Lake Monona and Lake Mendota.
+          {{ estabelecimento.descricao }}
         </ion-card-content>
       </div>
     </div>
@@ -33,21 +33,11 @@
         <ion-item>
           <ion-label>Mesa</ion-label>
           <ion-select>
-            <ion-select-option value="1989">1</ion-select-option>
-            <ion-select-option value="1990">2</ion-select-option>
-            <ion-select-option value="1991">3</ion-select-option>
-            <ion-select-option value="1992">4</ion-select-option>
-            <ion-select-option value="1993">5</ion-select-option>
-            <ion-select-option value="1994">6</ion-select-option>
-            <ion-select-option value="1995">7</ion-select-option>
-            <ion-select-option value="1996">8</ion-select-option>
-            <ion-select-option value="1997">9</ion-select-option>
-            <ion-select-option value="1998">10</ion-select-option>
-            <ion-select-option value="1999">11</ion-select-option>
+            <ion-select-option *ngFor="let mesa of estabelecimento.mesas" [value]="mesa.id">{{mesa.numero}}</ion-select-option>
           </ion-select>
         </ion-item>
 
-        <ion-button routerLink="/estabelecimento">Confirmar</ion-button>
+        <ion-button [disabled]="!ionSelect.value" (click)="confirmar()">Confirmar</ion-button>
       </div>
     </div>
   </div>

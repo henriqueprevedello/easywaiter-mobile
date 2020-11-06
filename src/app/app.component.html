@@ -14,13 +14,6 @@
             <ion-label>Início</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle
-          ><ion-item routerLink="/login">
-            <ion-icon name="log-in" slot="start"></ion-icon>
-            <ion-label>Acessar conta</ion-label>
-          </ion-item></ion-menu-toggle
-        >
-
         <ion-item>
           <ion-icon name="restaurant" slot="start"></ion-icon>
           <ion-label>Estabelecimentos</ion-label>
@@ -39,6 +32,12 @@
           <ion-item routerLink="/contato">
             <ion-icon name="mail" slot="start"></ion-icon>
             <ion-label>Contato</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item (click)="logout()">
+            <ion-icon name="log-out" slot="start"></ion-icon>
+            <ion-label>Sair</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

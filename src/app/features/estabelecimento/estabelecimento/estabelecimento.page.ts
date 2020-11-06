@@ -10,12 +10,14 @@ import {
 import { CardapioCategoria } from "src/app/models/cardapio-categoria";
 import { BehaviorSubject, Observable } from "rxjs";
 import { CarrinhoItem } from "src/app/models/carrinho-item";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { StorageService } from "src/app/core/services/storage.service";
 import { ModalController } from "@ionic/angular";
 import { ItemPedidoModalPage } from "../item-pedido-modal/item-pedido-modal.page";
 import { Produto } from "src/app/models/produto";
 import { tap } from "rxjs/operators";
+import { EstabelecimentoFacade } from 'src/app/core/facades/estabelecimento.facade';
+import { EstabelecimentoDTO } from 'src/app/models/estabelecimento.dto';
 
 @Component({
   selector: "app-estabelecimento",
@@ -26,6 +28,7 @@ import { tap } from "rxjs/operators";
 export class EstabelecimentoPage implements OnInit, AfterViewInit {
   @ViewChild("cart", { static: false, read: ElementRef }) fab: ElementRef;
 
+  estabelecimento: EstabelecimentoDTO;
   carrinho: Array<CarrinhoItem> = [];
   carrinhoLength$: Observable<number>;
   listaCardapio: Array<CardapioCategoria> = [
@@ -109,24 +112,28 @@ export class EstabelecimentoPage implements OnInit, AfterViewInit {
     private storageService: StorageService,
     private modalController: ModalController,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef
+    private route: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef,
+    private estabelecimentoFacade: EstabelecimentoFacade
   ) {}
 
   ngOnInit() {
+    this.estabelecimentoFacade.adquirir(+this.route.snapshot.paramMap.get("codigoEstabelecimento")).subscribe(estabelecimento=>
+      this.estabelecimento = estabelecimento
+    );
+
+
     this.storageService.get().then((itens) => {
       this.carrinho = itens;
       this.carrinhoLength$ = this.storageService.carrinhoLength$().pipe(
         tap(() => {
-          debugger;
           this.changeDetectorRef.detectChanges();
         })
       );
-      debugger;
     });
   }
 
   ngAfterViewInit() {
-    debugger;
   }
 
   async adicionarAoCarrinho(produto: Produto) {

@@ -16,7 +16,8 @@ export class CarrinhoPage implements OnInit {
   constructor(
     private storageService: StorageService,
     private modalController: ModalController,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -46,5 +47,7 @@ export class CarrinhoPage implements OnInit {
     this.storageService.clear().then(itens => (this.carrinho = itens));
   }
 
-  realizarPedido() {}
+  realizarPedido() {
+    this.router.navigate(['pedidos']);
+  }
 }

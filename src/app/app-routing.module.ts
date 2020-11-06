@@ -12,10 +12,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'lista-estado',
-    loadChildren: () => import('./features/localizacao/lista-estado/lista-estado.module').then( m => m.ListaEstadoPageModule)
-  },
-  {
     path: 'lista-cidade',
     loadChildren: () => import('./features/localizacao/lista-cidade/lista-cidade.module').then( m => m.ListaCidadePageModule)
   },
@@ -54,6 +50,10 @@ const routes: Routes = [
   {
     path: 'item-pedido-modal',
     loadChildren: () => import('./features/estabelecimento/item-pedido-modal/item-pedido-modal.module').then( m => m.ItemPedidoModalPageModule)
+  },
+  {
+    path: 'pedidos',
+    loadChildren: () => import('./features/estabelecimento/pedidos/pedidos.module').then( m => m.PedidosPageModule)
   },
 ];
 

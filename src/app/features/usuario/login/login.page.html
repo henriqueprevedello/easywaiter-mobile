@@ -1,9 +1,9 @@
 <ion-header>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   
-    <form class="vertical-center" #form="ngForm" (ngSubmit)="login(form)">
+  <form class="vertical-center"  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       
       <ion-grid>
 
@@ -13,16 +13,27 @@
           <ion-col size-md="6" size-lg="5" size-xs="12">
             <div>
               <ion-item>
-                <ion-input name="email" type="email" placeholder="email@email.com" ngModel required ></ion-input>
+                <ion-input name="email" type="email" formControlName="email" placeholder="email@email.com" ngModel required ></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="senha" type="password" placeholder="Senha" ngModel required ></ion-input>
+                <ion-input name="password" type="password" formControlName="password" placeholder="Senha" ngModel required ></ion-input>
               </ion-item>
             </div>
 
             <div>
-              <ion-button id="button-login" size="large" type="submit" [disabled]="form.invalid" expand="block" >Login</ion-button>
+              <ion-button id="button-login" size="large" type="submit" [disabled]="loginForm.invalid" expand="block" >
+                <span
+                  *ngIf="loading"
+                  class="spinner-border spinner-border-sm mr-1"
+                ></span>
+                Login
+              </ion-button>
             </div>
+
+            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+              {{ error }}
+            </div>
+
           </ion-col>
         </ion-row>
 

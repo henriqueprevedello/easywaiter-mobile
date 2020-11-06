@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AutenticacaoService } from './core/services/autenticacao.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +15,14 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private autenticacaoService: AutenticacaoService,
+    private router: Router
   ) {
     this.initializeApp();
+    if (!this.autenticacaoService.possuiUsuarioLogado) {
+      this.router.navigate(['/login']);
+    }
   }
 
   initializeApp() {
@@ -23,5 +30,10 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  logout() {
+    this.autenticacaoService.logout();
+    this.router.navigate(['/login']);
   }
 }

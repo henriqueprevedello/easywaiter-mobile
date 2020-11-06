@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
     <ion-title>Selecione a cidade</ion-title>
     <ion-buttons slot="start">
@@ -7,18 +7,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content fullscreen >
 
   <ion-list>
     <ion-searchbar placeholder="Pesquisar" (ionInput)="filtrar($event)">
     </ion-searchbar>
 
-    <ion-item *ngFor="let cidade of cidades" (click)="onClick(cidade)">
-      <ion-avatar slot="start">
-        <img src="https://www.gravatar.com/avatar/1?d=monsterid&f=y" />
-      </ion-avatar>
-
-      <h4>{{cidade.name}}</h4>
+    <ion-item *ngFor="let localizacao of localizacoes" (click)="onClick(localizacao)">
+      <h4>{{localizacao.cidade}} - {{localizacao.estado}}</h4>
     </ion-item>
   </ion-list>
 

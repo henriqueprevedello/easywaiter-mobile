@@ -16,6 +16,6 @@ export class HomePage implements OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngAfterViewInit() {
-    this.router.navigate(["/lista-estado"]);
+    this.router.navigate(["/lista-cidade"]);
   }
 }
