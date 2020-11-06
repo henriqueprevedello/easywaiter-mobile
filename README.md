@@ -1,2 +1,2 @@
 # easywaiter-mobile
-Aplicação mobile
+Aplicação mobile desenvolvida com Ionic
