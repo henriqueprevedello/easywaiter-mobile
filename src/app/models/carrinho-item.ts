@@ -1,7 +1,7 @@
-import { Produto } from './produto';
+import { ProdutoDTO } from './produto.dto';
 
 export interface CarrinhoItem {
-    produto: Produto;
+    produto: ProdutoDTO;
     observacao: string;
     quantidade: number;
 }

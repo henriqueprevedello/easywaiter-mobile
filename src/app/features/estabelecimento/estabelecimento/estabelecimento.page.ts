@@ -7,17 +7,18 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
 } from "@angular/core";
-import { CardapioCategoria } from "src/app/models/cardapio-categoria";
-import { BehaviorSubject, Observable } from "rxjs";
+import { CategoriaDTO } from "src/app/models/categoria.dto";
+import { Observable } from "rxjs";
 import { CarrinhoItem } from "src/app/models/carrinho-item";
 import { ActivatedRoute, Router } from "@angular/router";
 import { StorageService } from "src/app/core/services/storage.service";
 import { ModalController } from "@ionic/angular";
 import { ItemPedidoModalPage } from "../item-pedido-modal/item-pedido-modal.page";
-import { Produto } from "src/app/models/produto";
+import { ProdutoDTO } from "src/app/models/produto.dto";
 import { tap } from "rxjs/operators";
-import { EstabelecimentoFacade } from 'src/app/core/facades/estabelecimento.facade';
-import { EstabelecimentoDTO } from 'src/app/models/estabelecimento.dto';
+import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
+import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
+import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
 
 @Component({
   selector: "app-estabelecimento",
@@ -31,82 +32,6 @@ export class EstabelecimentoPage implements OnInit, AfterViewInit {
   estabelecimento: EstabelecimentoDTO;
   carrinho: Array<CarrinhoItem> = [];
   carrinhoLength$: Observable<number>;
-  listaCardapio: Array<CardapioCategoria> = [
-    {
-      titulo: "Bebidas",
-      itens: [
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-      ],
-    },
-    {
-      titulo: "Bebidas",
-      itens: [
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-        {
-          id: 1,
-          nome: "Coca Cola 350ml",
-          descricao: "Refrigerante lorem impsum",
-          imagem:
-            "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-          valor: 3.49,
-        },
-      ],
-    },
-  ];
 
   constructor(
     private storageService: StorageService,
@@ -114,14 +39,11 @@ export class EstabelecimentoPage implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
-    private estabelecimentoFacade: EstabelecimentoFacade
+    private estabelecimentoService: EstabelecimentoService
   ) {}
 
   ngOnInit() {
-    this.estabelecimentoFacade.adquirir(+this.route.snapshot.paramMap.get("codigoEstabelecimento")).subscribe(estabelecimento=>
-      this.estabelecimento = estabelecimento
-    );
-
+    this.estabelecimento = this.estabelecimentoService.estabelecimentoAtualDTO;
 
     this.storageService.get().then((itens) => {
       this.carrinho = itens;
@@ -133,10 +55,9 @@ export class EstabelecimentoPage implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 
-  async adicionarAoCarrinho(produto: Produto) {
+  async adicionarAoCarrinho(produto: ProdutoDTO) {
     const modal = await this.modalController.create({
       component: ItemPedidoModalPage,
       cssClass: "modal-padrao",

@@ -21,7 +21,7 @@ export class CarrinhoPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.storageService.get().then((itens) => {debugger;this.carrinho = itens}).catch(aa=>{debugger;}).finally(()=>{debugger;});
+    this.storageService.get().then((itens) => this.carrinho = itens);
   }
 
   adicionar(carrinhoItem: CarrinhoItem) {

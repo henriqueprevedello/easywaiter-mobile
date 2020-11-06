@@ -1,3 +1,4 @@
+import { CategoriaDTO } from './categoria.dto';
 import { MesaDTO } from './mesa.dto';
 
 export interface EstabelecimentoDTO {
@@ -9,4 +10,5 @@ export interface EstabelecimentoDTO {
   estado: string;
   cidade: string;
   mesas: Array<MesaDTO>;
+  categorias: Array<CategoriaDTO>;
 }

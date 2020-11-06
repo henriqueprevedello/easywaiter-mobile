@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="estabelecimento">
   <ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="(carrinhoLength$ | async) as carrinhoLength">
     <ion-fab-button (click)="abrirCarrinho()" #cart>
       <div class="cart-length">{{ carrinhoLength }}</div>
@@ -23,39 +23,37 @@
         />
 
         <ion-card-header class="ion-text-center">
-          <ion-card-title>McDonald's</ion-card-title>
+          <ion-card-title>{{ estabelecimento.nome }}</ion-card-title>
         </ion-card-header>
 
-        <ion-card-content class="ion-text-center">
-          Founded in 1829 on an isthmus between Lake Monona and Lake Mendota.
-        </ion-card-content>
+        <ion-card-content class="ion-text-center">{{ estabelecimento.descricao }}</ion-card-content>
       </div>
     </div>
 
     <hr />
 
-    <div class="container-cardapio" *ngIf="listaCardapio">
-      <ion-list *ngFor="let cardapio of listaCardapio">
-        <ion-list-header> {{ cardapio.titulo }} </ion-list-header>
+    <div class="container-cardapio" *ngIf="estabelecimento.categorias">
+      <ion-list *ngFor="let categoria of estabelecimento.categorias">
+        <ion-list-header> {{ categoria.nome }} </ion-list-header>
 
-        <ion-card *ngFor="let item of cardapio.itens">
+        <ion-card *ngFor="let produto of categoria.produtos">
           <ion-row>
             <ion-col size="3">
-              <ion-img src="{{ item.imagem }}"></ion-img>
+              <ion-img src="{{ produto.imagem }}"></ion-img>
             </ion-col>
 
             <ion-col size="9">
               <ion-card-content>
                 <ion-row class="ion-align-items-center">
                   <ion-col size="8">
-                    <ion-card-title>{{ item.nome }}</ion-card-title>
+                    <ion-card-title>{{ produto.nome }}</ion-card-title>
                     <ion-label>
-                      <p>{{ item.descricao }}</p>
+                      <p>{{ produto.descricao }}</p>
                     </ion-label>
                   </ion-col>
                   <ion-col size="4" class="ion-text-right">
                     <ion-label color="secondary">
-                      <b> {{ item.valor | currency: 'R$' }}</b>
+                      <b> {{ produto.valor | currency: 'R$' }}</b>
                     </ion-label>
                   </ion-col>
                 </ion-row>
@@ -64,7 +62,7 @@
                   <ion-col size="4" class="ion-text-right">
                     <ion-button
                       fill="clear"
-                      (click)="adicionarAoCarrinho(item)"
+                      (click)="adicionarAoCarrinho(produto)"
                     >
                       <ion-icon name="add"></ion-icon>
                     </ion-button>

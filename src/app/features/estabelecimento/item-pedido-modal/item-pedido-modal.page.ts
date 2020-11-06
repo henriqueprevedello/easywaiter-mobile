@@ -1,7 +1,7 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { IonTextarea, ModalController, NavController } from "@ionic/angular";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { IonTextarea, ModalController } from "@ionic/angular";
 import { StorageService } from "src/app/core/services/storage.service";
-import { Produto } from "src/app/models/produto";
+import { ProdutoDTO } from "src/app/models/produto.dto";
 
 @Component({
   selector: "app-item-pedido-modal",
@@ -10,7 +10,7 @@ import { Produto } from "src/app/models/produto";
 })
 export class ItemPedidoModalPage implements OnInit {
   @ViewChild("observacao") observacao: IonTextarea;
-  @Input() produto: Produto;
+  @Input() produto: ProdutoDTO;
 
   quantidade = 1;
 
