@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { IonSelect, NavParams } from "@ionic/angular";
+import { IonInfiniteScroll, IonSelect, NavParams } from "@ionic/angular";
 import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
 import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
@@ -13,24 +13,10 @@ import { ToastHelper } from "src/app/shared/helpers/toast.helper";
   styleUrls: ["./identificacao-mesa.page.scss"],
 })
 export class IdentificacaoMesaPage implements OnInit {
-  @ViewChild(IonSelect) ionSelect: IonSelect;
-
-  estabelecimento: EstabelecimentoDTO = {
-    codigoEstabelecimento: 2,
-    nome: "Estabelecimento 2",
-    descricao:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    numeroTelefone: "(49) 99955-8989",
-    cnpj: "11223344556677",
-    estado: "SC",
-    cidade: "Anchieta",
-    categorias: [],
-    mesas: [
-      { id: 1, numero: 17, ocupado: false },
-      { id: 2, numero: 51, ocupado: true },
-      { id: 3, numero: 69, ocupado: false },
-    ],
-  };
+  @ViewChild(IonInfiniteScroll) infiniteScrollView: IonInfiniteScroll;
+  start = 0;
+  reActiveInfinite: any;
+  estabelecimento: EstabelecimentoDTO;
 
   constructor(
     private router: Router,
@@ -43,13 +29,20 @@ export class IdentificacaoMesaPage implements OnInit {
     this.estabelecimento = this.estabelecimentoService.estabelecimentoAtualDTO;
   }
 
-  confirmar() {
-    if (this.ionSelect.value) {
-      this.router.navigate(["/estabelecimento"]);
+  onClick(mesaDTO: MesaDTO) {
+    this.estabelecimentoService.definirMesa(mesaDTO);
+    this.router.navigate(["/estabelecimento"]);
+  }
 
-      return;
-    }
+  scrollInfinito(infiniteScroll) {
+    this.reActiveInfinite = infiniteScroll;
 
-    this.toastHelper.exibir("Selecione uma mesa!");
+    this.start += 20;
+    setTimeout(() => {
+      this.infiniteScrollView.complete();
+      if (this.start > this.estabelecimento.mesas.length) {
+        infiniteScroll.enable(false);
+      }
+    }, 500);
   }
 }

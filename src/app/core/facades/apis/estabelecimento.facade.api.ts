@@ -9,11 +9,16 @@ import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 export class EstabelecimentoFacadeApi {
   constructor(private http: HttpClient) {}
 
-  adquirir(codigoEstabelecimento: number): Observable<EstabelecimentoDTO> {
-    const params = new HttpParams().set("codigoEstabelecimento", codigoEstabelecimento.toString());
+  adquirirPorCodigo(
+    codigoEstabelecimento: number
+  ): Observable<EstabelecimentoDTO> {
+    const params = new HttpParams().set(
+      "codigoEstabelecimento",
+      codigoEstabelecimento.toString()
+    );
 
     return this.http.get<EstabelecimentoDTO>(
-      EndpointsConstants.ESTABELECIMENTO.ADQUIRIR,
+      EndpointsConstants.ESTABELECIMENTO.ADQUIRIR_POR_CODIGO,
       { params }
     );
   }
@@ -24,8 +29,11 @@ export class EstabelecimentoFacadeApi {
     );
   }
 
-  adquirirPorLocalizacao(cidade: string, estado: string): Observable<Array<EstabelecimentoDTO>> {
-    const params = new HttpParams().set("cidade", cidade).set('estado', estado);
+  adquirirPorLocalizacao(
+    cidade: string,
+    estado: string
+  ): Observable<Array<EstabelecimentoDTO>> {
+    const params = new HttpParams().set("cidade", cidade).set("estado", estado);
 
     return this.http.get<Array<EstabelecimentoDTO>>(
       EndpointsConstants.ESTABELECIMENTO.ADQUIRIR_POR_LOCALIZACAO,

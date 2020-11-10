@@ -1,11 +1,57 @@
-
-
 ion-img {
-  height: 40%;
+  height: 20%;
   width: auto;
 }
 
 ion-card-title {
-    font-size: 24px;
-    font-weight: 900;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.botao-finalizar {
+  width: 100%;
+}
+
+.centralizar-botoes {
+  margin: 0 auto;
+  width: 56px;
+}
+
+.centralizar-quantidade {
+  margin: 0 auto;
+  width: 51px;
+  font-size: 25px;
+  font-weight: 900;
+
+  p {
+    margin: 0;
+  }
+}
+
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+ion-textarea {
+  background-color: moccasin;
+  border-radius: 6px;
+  width: 100%;
+  padding: 2px;
+  color: black;
+}
+
+// nao ta usando
+hr {
+  max-width: 80%;
+  border-top: 1px solid rgba(255, 255, 255, 0.65);
+  display: block;
+  margin: 4px auto;
+}
+
+.label-valor {
+  background-color: rgba(116, 116, 116, 0.3);
+  width: auto;
+  font-size: 30px;
+  font-weight: 700;
 }

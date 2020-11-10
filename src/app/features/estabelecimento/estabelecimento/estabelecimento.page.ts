@@ -57,6 +57,11 @@ export class EstabelecimentoPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400,
+  };
+
   async adicionarAoCarrinho(produto: ProdutoDTO) {
     const modal = await this.modalController.create({
       component: ItemPedidoModalPage,

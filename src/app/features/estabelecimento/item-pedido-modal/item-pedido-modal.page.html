@@ -1,12 +1,9 @@
-
-<ion-content>
+<ion-content color="light">
   <ion-img [src]="produto.imagem"></ion-img>
 
   <ion-row>
     <ion-col size="12">
-      <ion-card-title class="ion-text-center"
-        >{{ produto.nome }}</ion-card-title
-      >
+      <h3 class="ion-text-center">{{ produto.nome }}</h3>
     </ion-col>
   </ion-row>
 
@@ -19,56 +16,75 @@
   </ion-row>
 
   <ion-row>
-    <ion-col size="12">
-      <ion-label>
-        <p class="ion-text-center">{{ (quantidade * produto.valor).toFixed(2) }}</p>
-      </ion-label>
+    <ion-col size="4">
+      <div class="centralizar-botoes">
+        <ion-button
+          class="ion-align-self-end"
+          fill="clear"
+          (click)="diminuirQuantidade()"
+        >
+          <ion-icon
+            name="remove-circle"
+            color="danger"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-button>
+      </div>
     </ion-col>
-  </ion-row>
 
-  <ion-row class="ion-align-items-center">
-    <ion-col size="12">
-      <ion-button
-        class="ion-align-self-center"
-        color="medium"
-        fill="clear"
-        (click)="diminuirQuantidade()"
-      >
-        <ion-icon
-          name="remove-circle"
-          color="danger"
-          slot="icon-only"
-        ></ion-icon>
-      </ion-button>
-
-      {{ quantidade }}
-
-      <ion-button
-        class="ion-align-self-center"
-        color="medium"
-        fill="clear"
-        (click)="aumentarQuantidade()"
-      >
-        <ion-icon name="add-circle" color="success" slot="icon-only"></ion-icon>
-      </ion-button>
+    <ion-col size="4">
+      <div class="centralizar-quantidade">
+        <p>{{ quantidade }}x</p>
+      </div>
     </ion-col>
-  </ion-row>
 
-  <ion-row class="ion-margin">
-    <ion-col size="12" >
-      <ion-item >
-        <ion-textarea #observacao placeholder="Escreva aqui observações do produto ou do preparo..."></ion-textarea>
-      </ion-item>
+    <ion-col size="4">
+      <div class="centralizar-botoes">
+        <ion-button fill="clear" (click)="aumentarQuantidade()">
+          <ion-icon
+            name="add-circle"
+            color="success"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-button>
+      </div>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col size="12">
-      <ion-button color="medium" (click)="cancelar()">
+      <div class="label-valor ion-text-center">
+        R$ {{ (quantidade * produto.valor).toFixed(2) }}
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-textarea
+        class="ion-text-center"
+        #observacao
+        placeholder="Escreva aqui observações do produto ou do preparo..."
+      ></ion-textarea>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-button class="botao-finalizar" color="danger" (click)="cancelar()">
         Cancelar
       </ion-button>
-      <ion-button color="success" (click)="adicionarAoCarrinho()">
-        Adicionador ao carrinho
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-button
+        class="botao-finalizar"
+        color="success"
+        (click)="adicionarAoCarrinho()"
+      >
+        Adicionador
       </ion-button>
     </ion-col>
   </ion-row>

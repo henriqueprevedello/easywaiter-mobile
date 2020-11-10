@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
 import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
-import { finalize, switchMap } from "rxjs/operators";
+import { finalize, switchMap, take } from "rxjs/operators";
 
 @Component({
   selector: "app-lista-estabelecimento",
@@ -33,8 +33,13 @@ export class ListaEstabelecimentoPage implements OnInit {
   }
 
   onClick(estabelecimentoDTO: EstabelecimentoDTO) {
-    this.estabelecimentoService.definir(estabelecimentoDTO);
-    this.router.navigate(["/identificacao-mesa"]);
+    this.estabelecimentoFacade
+      .adquirirPorCodigo(estabelecimentoDTO.codigoEstabelecimento)
+      .pipe(take(1))
+      .subscribe((estabelecimentoSalvar) => {
+        this.estabelecimentoService.definir(estabelecimentoSalvar);
+        this.router.navigate(["/identificacao-mesa"]);
+      });
   }
 
   adquirirEstabelecimentos() {
@@ -43,6 +48,7 @@ export class ListaEstabelecimentoPage implements OnInit {
         this.route.snapshot.paramMap.get("cidade"),
         this.route.snapshot.paramMap.get("estado")
       )
+      .pipe(take(1))
       .subscribe((estabelecimentos) => {
         this.estabelecimentos = estabelecimentos;
         this.estabelecimentosBuscados = estabelecimentos;

@@ -7,7 +7,12 @@
 </ion-header>
 
 <ion-content *ngIf="estabelecimento">
-  <ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="(carrinhoLength$ | async) as carrinhoLength">
+  <ion-fab
+    vertical="top"
+    horizontal="end"
+    slot="fixed"
+    *ngIf="(carrinhoLength$ | async) as carrinhoLength"
+  >
     <ion-fab-button (click)="abrirCarrinho()" #cart>
       <div class="cart-length">{{ carrinhoLength }}</div>
       <ion-icon name="cart" class="cart-icon"></ion-icon>
@@ -15,63 +20,53 @@
   </ion-fab>
 
   <div class="container">
-    <div class="container-item">
-      <div>
-        <img
-          class="imagem-estabelecimento"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/McDonald%27s_logo.svg/792px-McDonald%27s_logo.svg.png"
-        />
-
-        <ion-card-header class="ion-text-center">
-          <ion-card-title>{{ estabelecimento.nome }}</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content class="ion-text-center">{{ estabelecimento.descricao }}</ion-card-content>
-      </div>
-    </div>
-
-    <hr />
+    <h3 class="ion-text-center">Produtos</h3>
 
     <div class="container-cardapio" *ngIf="estabelecimento.categorias">
       <ion-list *ngFor="let categoria of estabelecimento.categorias">
-        <ion-list-header> {{ categoria.nome }} </ion-list-header>
+        <div *ngIf="categoria.produtos.length">
+          <ion-list-header> {{ categoria.nome }} </ion-list-header>
 
-        <ion-card *ngFor="let produto of categoria.produtos">
-          <ion-row>
-            <ion-col size="3">
-              <ion-img src="{{ produto.imagem }}"></ion-img>
-            </ion-col>
+          <ion-card *ngFor="let produto of categoria.produtos">
+            <ion-row>
+              <ion-col size="3">
+                <ion-img src="{{ produto.imagem }}"></ion-img>
+              </ion-col>
 
-            <ion-col size="9">
-              <ion-card-content>
-                <ion-row class="ion-align-items-center">
-                  <ion-col size="8">
-                    <ion-card-title>{{ produto.nome }}</ion-card-title>
-                    <ion-label>
-                      <p>{{ produto.descricao }}</p>
-                    </ion-label>
-                  </ion-col>
-                  <ion-col size="4" class="ion-text-right">
-                    <ion-label color="secondary">
-                      <b> {{ produto.valor | currency: 'R$' }}</b>
-                    </ion-label>
-                  </ion-col>
-                </ion-row>
-                <ion-row class="ion-align-items-center">
-                  <ion-col size="8"> </ion-col>
-                  <ion-col size="4" class="ion-text-right">
-                    <ion-button
-                      fill="clear"
-                      (click)="adicionarAoCarrinho(produto)"
-                    >
-                      <ion-icon name="add"></ion-icon>
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-card-content>
-            </ion-col>
-          </ion-row>
-        </ion-card>
+              <ion-col size="9">
+                <ion-card-content>
+                  <ion-row class="ion-align-items-center">
+                    <ion-col size="8">
+                      <ion-card-title>{{ produto.nome }}</ion-card-title>
+                      <ion-label>
+                        <p>{{ produto.descricao }}</p>
+                      </ion-label>
+                    </ion-col>
+
+                    <ion-col size="4" class="ion-text-right">
+                      <ion-label color="secondary">
+                        <b> {{ produto.valor | currency: 'R$' }}</b>
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row class="ion-align-items-center">
+                    <ion-col size="8"> </ion-col>
+
+                    <ion-col size="4" class="ion-text-right">
+                      <ion-button
+                        fill="clear"
+                        (click)="adicionarAoCarrinho(produto)"
+                      >
+                        <ion-icon name="add"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </div>
       </ion-list>
     </div>
   </div>
