@@ -1,12 +1,20 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { IonTextarea, ModalController } from "@ionic/angular";
-import { StorageService } from "src/app/core/services/storage.service";
+import { CarrinhoService } from "src/app/core/services/carrinho.service";
 import { ProdutoDTO } from "src/app/models/produto.dto";
 
 @Component({
   selector: "app-item-pedido-modal",
   templateUrl: "./item-pedido-modal.page.html",
   styleUrls: ["./item-pedido-modal.page.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemPedidoModalPage implements OnInit {
   @ViewChild("observacao") observacao: IonTextarea;
@@ -15,13 +23,12 @@ export class ItemPedidoModalPage implements OnInit {
   quantidade = 1;
 
   constructor(
-    private storageService: StorageService,
-    private modalController: ModalController
+    private storageService: CarrinhoService,
+    private modalController: ModalController,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {}
-
-  onClickClose() {}
 
   diminuirQuantidade() {
     if (this.quantidade <= 1) {
@@ -35,11 +42,14 @@ export class ItemPedidoModalPage implements OnInit {
   }
 
   adicionarAoCarrinho() {
-    this.storageService.add({
+    this.storageService.adicionar({
       produto: this.produto,
-      observacao: this.observacao.value ? this.observacao.value : null,
+      observacao: this.observacao.value ? this.observacao.value : "",
       quantidade: this.quantidade,
     });
+
+    this.changeDetectorRef.detectChanges();
+
     this.modalController.dismiss();
   }
 

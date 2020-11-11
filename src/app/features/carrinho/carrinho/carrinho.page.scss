@@ -1,18 +1,69 @@
-ion-title {
-  line-height: 100%;
-}
-
-.quantidade {
-  color: mediumspringgreen;
-  font-size: 1.4em;
-}
-
 .fixed-bottom {
   position: fixed;
   bottom: 0;
   width: calc(100% - 40px);
 }
 
-.botao-pedir {
-    margin: 20px ;
+.icone-principal {
+  width: 80px;
+  height: 80px;
+}
+
+.coluna-simples {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.centralizar-icone {
+  margin: 0 auto;
+  width: 80px;
+}
+
+.centralizar-valor {
+  margin: 0 auto;
+  width: 153px;
+}
+
+.centralizar-quantidade {
+  margin: 0 auto;
+  width: 71px;
+}
+
+.totais {
+  color: rgba(218, 71, 51, 1);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.linha-totais {
+  padding: 0 10px;
+}
+
+ion-list {
+  padding: 0 !important;
+  margin-bottom: 75px;
+}
+
+hr {
+  max-width: 80%;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  display: block;
+  margin: 4px auto;
+}
+
+.nome-produto {
+  margin: 0 !important;
+}
+
+.fundo-light {
+  background-color: white;
+  width: 100%;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
+  padding: 0 5px;
+
+  ion-button {
+    padding: 0;
+    margin: 10px 0;
+    width: 100%;
+  }
 }

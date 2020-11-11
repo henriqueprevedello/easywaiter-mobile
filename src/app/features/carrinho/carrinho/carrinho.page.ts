@@ -2,8 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { CarrinhoItem } from "src/app/models/carrinho-item";
 import { Router } from "@angular/router";
-import { Location } from "@angular/common";
-import { StorageService } from "src/app/core/services/storage.service";
+import { CarrinhoService } from "src/app/core/services/carrinho.service";
 
 @Component({
   selector: "app-carrinho",
@@ -14,21 +13,24 @@ export class CarrinhoPage implements OnInit {
   carrinho: Array<CarrinhoItem> = [];
 
   constructor(
-    private storageService: StorageService,
+    private storageService: CarrinhoService,
     private modalController: ModalController,
-    private location: Location,
     private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.storageService.get().then((itens) => this.carrinho = itens);
+  ) {
+    this.carrinho = this.storageService.adquirir();
   }
+
+  ngOnInit() {}
 
   adicionar(carrinhoItem: CarrinhoItem) {
-    this.storageService.add(carrinhoItem);
+    this.storageService.adicionar(carrinhoItem);
   }
 
-  getTotal() {
+  get quantidadeTotal(): number {
+    return this.carrinho.reduce((prev, atual) => prev + atual.quantidade, 0);
+  }
+
+  get valorTotal() {
     return this.carrinho.reduce(
       (i, j) => i + j.produto.valor * j.quantidade,
       0
@@ -40,14 +42,15 @@ export class CarrinhoPage implements OnInit {
   }
 
   voltarPagina() {
-    this.location.back();
+    this.router.navigate(["/estabelecimento"]);
   }
 
-  limparCarrinho(){
-    this.storageService.clear().then(itens => (this.carrinho = itens));
+  limparCarrinho() {
+    this.storageService.limpar();
+    this.carrinho = [];
   }
 
   realizarPedido() {
-    this.router.navigate(['pedidos']);
+    this.router.navigate(["pedidos"]);
   }
 }

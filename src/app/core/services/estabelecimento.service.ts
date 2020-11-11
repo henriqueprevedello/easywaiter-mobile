@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, of } from "rxjs";
-import { tap } from "rxjs/operators";
+import { BehaviorSubject, Observable } from "rxjs";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { MesaDTO } from "src/app/models/mesa.dto";
 

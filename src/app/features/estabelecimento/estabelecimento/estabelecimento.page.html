@@ -6,16 +6,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="estabelecimento">
-  <ion-fab
-    vertical="top"
-    horizontal="end"
-    slot="fixed"
-    *ngIf="(carrinhoLength$ | async) as carrinhoLength"
-  >
+<ion-content color="light" *ngIf="estabelecimento">
+  <ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="quantidadeItens">
     <ion-fab-button (click)="abrirCarrinho()" #cart>
-      <div class="cart-length">{{ carrinhoLength }}</div>
-      <ion-icon name="cart" class="cart-icon"></ion-icon>
+      <div class="cart-length">{{ quantidadeItens }}</div>
+      <ion-icon name="basket" class="cart-icon"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
@@ -25,10 +20,10 @@
     <div class="container-cardapio" *ngIf="estabelecimento.categorias">
       <ion-list *ngFor="let categoria of estabelecimento.categorias">
         <div *ngIf="categoria.produtos.length">
-          <ion-list-header> {{ categoria.nome }} </ion-list-header>
+          <ion-list-header> {{ categoria.nome }}: </ion-list-header>
 
           <ion-card *ngFor="let produto of categoria.produtos">
-            <ion-row>
+            <ion-row (click)="adicionarAoCarrinho(produto)">
               <ion-col size="3">
                 <ion-img src="{{ produto.imagem }}"></ion-img>
               </ion-col>
@@ -54,10 +49,7 @@
                     <ion-col size="8"> </ion-col>
 
                     <ion-col size="4" class="ion-text-right">
-                      <ion-button
-                        fill="clear"
-                        (click)="adicionarAoCarrinho(produto)"
-                      >
+                      <ion-button fill="clear">
                         <ion-icon name="add"></ion-icon>
                       </ion-button>
                     </ion-col>

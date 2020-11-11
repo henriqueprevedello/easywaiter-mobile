@@ -1,22 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  ChangeDetectorRef,
-  ChangeDetectionStrategy,
-} from "@angular/core";
-import { CategoriaDTO } from "src/app/models/categoria.dto";
-import { Observable } from "rxjs";
+import { Component, OnInit } from "@angular/core";
 import { CarrinhoItem } from "src/app/models/carrinho-item";
-import { ActivatedRoute, Router } from "@angular/router";
-import { StorageService } from "src/app/core/services/storage.service";
+import { Router } from "@angular/router";
+import { CarrinhoService } from "src/app/core/services/carrinho.service";
 import { ModalController } from "@ionic/angular";
 import { ItemPedidoModalPage } from "../item-pedido-modal/item-pedido-modal.page";
 import { ProdutoDTO } from "src/app/models/produto.dto";
-import { tap } from "rxjs/operators";
-import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
 
@@ -24,50 +12,42 @@ import { EstabelecimentoService } from "src/app/core/services/estabelecimento.se
   selector: "app-estabelecimento",
   templateUrl: "./estabelecimento.page.html",
   styleUrls: ["./estabelecimento.page.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EstabelecimentoPage implements OnInit, AfterViewInit {
-  @ViewChild("cart", { static: false, read: ElementRef }) fab: ElementRef;
-
+export class EstabelecimentoPage implements OnInit {
   estabelecimento: EstabelecimentoDTO;
   carrinho: Array<CarrinhoItem> = [];
-  carrinhoLength$: Observable<number>;
+  quantidadeItens: number;
 
   constructor(
-    private storageService: StorageService,
+    private storageService: CarrinhoService,
     private modalController: ModalController,
     private router: Router,
-    private route: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef,
     private estabelecimentoService: EstabelecimentoService
-  ) {}
-
-  ngOnInit() {
-    this.estabelecimento = this.estabelecimentoService.estabelecimentoAtualDTO;
-
-    this.storageService.get().then((itens) => {
-      this.carrinho = itens;
-      this.carrinhoLength$ = this.storageService.carrinhoLength$().pipe(
-        tap(() => {
-          this.changeDetectorRef.detectChanges();
-        })
-      );
-    });
+  ) {
+    this.quantidadeItens = storageService.quantidade;
   }
 
-  ngAfterViewInit() {}
+  ngOnInit() {
+    this.router.events.subscribe(
+      () => (this.quantidadeItens = this.storageService.quantidade)
+    );
+    this.estabelecimento = this.estabelecimentoService.estabelecimentoAtualDTO;
 
-  slideOpts = {
-    initialSlide: 0,
-    speed: 400,
-  };
+    this.carrinho = this.storageService.adquirir();
 
-  async adicionarAoCarrinho(produto: ProdutoDTO) {
+    this.quantidadeItens = this.storageService.quantidade;
+  }
+
+  async adicionarAoCarrinho(produto: ProdutoDTO): Promise<any> {
     const modal = await this.modalController.create({
       component: ItemPedidoModalPage,
       cssClass: "modal-padrao",
       componentProps: { produto: produto },
     });
+
+    modal
+      .onDidDismiss()
+      .then(() => (this.quantidadeItens = this.storageService.quantidade));
 
     return await modal.present();
   }
