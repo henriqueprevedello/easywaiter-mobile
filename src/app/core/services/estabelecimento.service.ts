@@ -3,27 +3,23 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { MesaDTO } from "src/app/models/mesa.dto";
 
+const ESTABELECIMENTO_ATUAL = "estabelecimentoAtual";
+const MESA_ATUAL = "mesaAtual";
+
 @Injectable({ providedIn: "root" })
 export class EstabelecimentoService {
-  private ESTABELECIMENTO_ATUAL = "estabelecimentoAtual";
-  private MESA_ATUAL = "mesaAtual";
-  private estabelecimentoAtualSubject: BehaviorSubject<EstabelecimentoDTO>;
-  estabelecimentoAtual: Observable<EstabelecimentoDTO>;
+  constructor() {}
 
-  constructor() {
-    this.estabelecimentoAtualSubject = new BehaviorSubject<EstabelecimentoDTO>(
-      JSON.parse(localStorage.getItem(this.ESTABELECIMENTO_ATUAL))
-    );
-
-    this.estabelecimentoAtual = this.estabelecimentoAtualSubject.asObservable();
+  get estabelecimento(): EstabelecimentoDTO {
+    return JSON.parse(localStorage.getItem(ESTABELECIMENTO_ATUAL));
   }
 
-  get estabelecimentoAtualDTO(): EstabelecimentoDTO {
-    return this.estabelecimentoAtualSubject.value;
+  get mesa(): MesaDTO {
+    return JSON.parse(localStorage.getItem(MESA_ATUAL));
   }
 
   get possuiEstabelecimentoInformado() {
-    if (this.estabelecimentoAtualSubject.value) {
+    if (this.estabelecimento) {
       return true;
     }
 
@@ -32,20 +28,17 @@ export class EstabelecimentoService {
 
   definir(estabelecimentoDTO: EstabelecimentoDTO): void {
     localStorage.setItem(
-      this.ESTABELECIMENTO_ATUAL,
+      ESTABELECIMENTO_ATUAL,
       JSON.stringify(estabelecimentoDTO)
     );
-
-    this.estabelecimentoAtualSubject.next(estabelecimentoDTO);
   }
 
   definirMesa(mesaDTO: MesaDTO): void {
-    localStorage.setItem(this.MESA_ATUAL, JSON.stringify(mesaDTO));
+    localStorage.setItem(MESA_ATUAL, JSON.stringify(mesaDTO));
   }
 
   limpar() {
-    localStorage.removeItem(this.ESTABELECIMENTO_ATUAL);
-    localStorage.removeItem(this.MESA_ATUAL);
-    this.estabelecimentoAtualSubject.next(null);
+    localStorage.removeItem(ESTABELECIMENTO_ATUAL);
+    localStorage.removeItem(MESA_ATUAL);
   }
 }

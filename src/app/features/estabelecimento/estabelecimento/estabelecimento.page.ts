@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CarrinhoItem } from "src/app/models/carrinho-item";
+import { PedidoItemDTO } from "src/app/models/pedido-item.dto";
 import { Router } from "@angular/router";
 import { CarrinhoService } from "src/app/core/services/carrinho.service";
 import { ModalController } from "@ionic/angular";
@@ -15,7 +15,7 @@ import { EstabelecimentoService } from "src/app/core/services/estabelecimento.se
 })
 export class EstabelecimentoPage implements OnInit {
   estabelecimento: EstabelecimentoDTO;
-  carrinho: Array<CarrinhoItem> = [];
+  carrinho: Array<PedidoItemDTO> = [];
   quantidadeItens: number;
 
   constructor(
@@ -31,7 +31,7 @@ export class EstabelecimentoPage implements OnInit {
     this.router.events.subscribe(
       () => (this.quantidadeItens = this.storageService.quantidade)
     );
-    this.estabelecimento = this.estabelecimentoService.estabelecimentoAtualDTO;
+    this.estabelecimento = this.estabelecimentoService.estabelecimento;
 
     this.carrinho = this.storageService.adquirir();
 

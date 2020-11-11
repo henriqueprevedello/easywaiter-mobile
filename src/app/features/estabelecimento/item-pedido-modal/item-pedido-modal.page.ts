@@ -44,7 +44,6 @@ export class ItemPedidoModalPage implements OnInit {
   adicionarAoCarrinho() {
     this.storageService.adicionar({
       produto: this.produto,
-      observacao: this.observacao.value ? this.observacao.value : "",
       quantidade: this.quantidade,
     });
 

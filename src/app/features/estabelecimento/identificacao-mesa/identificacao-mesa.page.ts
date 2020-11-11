@@ -26,7 +26,7 @@ export class IdentificacaoMesaPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.estabelecimento = this.estabelecimentoService.estabelecimentoAtualDTO;
+    this.estabelecimento = this.estabelecimentoService.estabelecimento;
   }
 
   onClick(mesaDTO: MesaDTO) {

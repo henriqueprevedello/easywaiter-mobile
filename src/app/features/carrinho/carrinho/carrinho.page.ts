@@ -1,8 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { CarrinhoItem } from "src/app/models/carrinho-item";
+import { PedidoItemDTO } from "src/app/models/pedido-item.dto";
 import { Router } from "@angular/router";
 import { CarrinhoService } from "src/app/core/services/carrinho.service";
+import { PedidoFacade } from "src/app/core/facades/pedido.facade";
+import { PedidoDTO } from "src/app/models/pedido.dto";
+import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
+import { take } from "rxjs/operators";
+import { AutenticacaoService } from "src/app/core/services/autenticacao.service";
 
 @Component({
   selector: "app-carrinho",
@@ -10,20 +15,23 @@ import { CarrinhoService } from "src/app/core/services/carrinho.service";
   styleUrls: ["./carrinho.page.scss"],
 })
 export class CarrinhoPage implements OnInit {
-  carrinho: Array<CarrinhoItem> = [];
+  carrinho: Array<PedidoItemDTO> = [];
 
   constructor(
-    private storageService: CarrinhoService,
+    private carrinhoService: CarrinhoService,
+    private estabelecimentoService: EstabelecimentoService,
+    private autenticacaoService: AutenticacaoService,
     private modalController: ModalController,
-    private router: Router
+    private router: Router,
+    private pedidoFacade: PedidoFacade
   ) {
-    this.carrinho = this.storageService.adquirir();
+    this.carrinho = this.carrinhoService.adquirir();
   }
 
   ngOnInit() {}
 
-  adicionar(carrinhoItem: CarrinhoItem) {
-    this.storageService.adicionar(carrinhoItem);
+  adicionar(pedidoItemDTO: PedidoItemDTO) {
+    this.carrinhoService.adicionar(pedidoItemDTO);
   }
 
   get quantidadeTotal(): number {
@@ -46,11 +54,27 @@ export class CarrinhoPage implements OnInit {
   }
 
   limparCarrinho() {
-    this.storageService.limpar();
+    this.carrinhoService.limpar();
     this.carrinho = [];
   }
 
   realizarPedido() {
-    this.router.navigate(["pedidos"]);
+    debugger;
+    const pedidoDTO: PedidoDTO = {
+      pedidoItens: this.carrinhoService.adquirir(),
+      codigoEstabelecimento: this.estabelecimentoService.estabelecimento
+        .codigoEstabelecimento,
+      codigoMesa: this.estabelecimentoService.mesa.id,
+      // adquirido pelo token
+      codigoCliente: null,
+    };
+
+    this.pedidoFacade
+      .adicionar(pedidoDTO)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.limparCarrinho();
+        this.router.navigate(["/pedidos"]);
+      });
   }
 }

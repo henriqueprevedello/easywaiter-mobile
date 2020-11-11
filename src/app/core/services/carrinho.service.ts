@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { CarrinhoItem } from "src/app/models/carrinho-item";
+import { PedidoItemDTO } from "src/app/models/pedido-item.dto";
 
 const CARRINHO = "carrinho";
 
@@ -8,7 +8,7 @@ const CARRINHO = "carrinho";
   providedIn: "root",
 })
 export class CarrinhoService {
-  private carrinhoAtualSubject: BehaviorSubject<Array<CarrinhoItem>>;
+  private carrinhoAtualSubject: BehaviorSubject<Array<PedidoItemDTO>>;
   private quantidadeAtualSubject: BehaviorSubject<number>;
 
   constructor() {
@@ -25,7 +25,7 @@ export class CarrinhoService {
   }
 
   private atualizarCarrinho(): void {
-    this.carrinhoAtualSubject = new BehaviorSubject<Array<CarrinhoItem>>(
+    this.carrinhoAtualSubject = new BehaviorSubject<Array<PedidoItemDTO>>(
       JSON.parse(localStorage.getItem(CARRINHO))
     );
   }
@@ -34,11 +34,11 @@ export class CarrinhoService {
     return this.quantidadeAtualSubject.value;
   }
 
-  get carrinho(): Array<CarrinhoItem> {
+  get carrinho(): Array<PedidoItemDTO> {
     return this.carrinhoAtualSubject.value;
   }
 
-  private set(itensCarrinho: Array<CarrinhoItem>): void {
+  private set(itensCarrinho: Array<PedidoItemDTO>): void {
     localStorage.setItem(CARRINHO, JSON.stringify(itensCarrinho));
 
     this.atualizarQuantidade();
@@ -51,8 +51,10 @@ export class CarrinhoService {
     this.atualizarCarrinho();
   }
 
-  adicionar(carrinhoItem: CarrinhoItem): void {
-    let lista: Array<CarrinhoItem> = JSON.parse(localStorage.getItem(CARRINHO));
+  adicionar(carrinhoItem: PedidoItemDTO): void {
+    let lista: Array<PedidoItemDTO> = JSON.parse(
+      localStorage.getItem(CARRINHO)
+    );
 
     if (lista) {
       lista.push(carrinhoItem);
@@ -65,10 +67,10 @@ export class CarrinhoService {
     this.set([carrinhoItem]);
   }
 
-  adquirir = (): Array<CarrinhoItem> =>
+  adquirir = (): Array<PedidoItemDTO> =>
     JSON.parse(localStorage.getItem(CARRINHO));
 
-  private adquirirQuantidadeProdutos(itens: Array<CarrinhoItem>): number {
+  private adquirirQuantidadeProdutos(itens: Array<PedidoItemDTO>): number {
     if (!itens || !itens.length) {
       return 0;
     }
