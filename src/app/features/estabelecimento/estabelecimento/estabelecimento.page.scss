@@ -27,3 +27,25 @@ ion-card-content {
 ion-card-title {
   font-size: 18px;
 }
+
+img {
+  -webkit-border-radius: 10%;
+  border-radius: 10%;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
+}
+
+.descricao-produto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.ellipsify {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  display: inline-block;
+}

@@ -59,22 +59,23 @@ export class CarrinhoPage implements OnInit {
   }
 
   realizarPedido() {
-    debugger;
+  
     const pedidoDTO: PedidoDTO = {
       pedidoItens: this.carrinhoService.adquirir(),
       codigoEstabelecimento: this.estabelecimentoService.estabelecimento
         .codigoEstabelecimento,
       codigoMesa: this.estabelecimentoService.mesa.id,
-      // adquirido pelo token
+      // !adquirido pelo token
       codigoCliente: null,
     };
 
     this.pedidoFacade
       .adicionar(pedidoDTO)
       .pipe(take(1))
-      .subscribe(() => {
+      .subscribe(codigoPedido => {
         this.limparCarrinho();
-        this.router.navigate(["/pedidos"]);
+        this.router.navigate(["/pedido", {codigoPedido}]);
+        
       });
   }
 }

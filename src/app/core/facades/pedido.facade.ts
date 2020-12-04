@@ -10,4 +10,8 @@ export class PedidoFacade {
   adicionar(pedidoDTO: PedidoDTO): Observable<void> {
     return this.api.adicionar(pedidoDTO);
   }
+
+  adquirir(codigoPedido: number): Observable<PedidoDTO> {
+    return this.api.adquirir(codigoPedido);
+  }
 }

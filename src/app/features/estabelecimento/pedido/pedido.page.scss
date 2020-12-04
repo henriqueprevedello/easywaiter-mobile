@@ -1,0 +1,52 @@
+hr {
+    margin: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    max-width: 60%;
+    min-width: 320px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .imagem-estabelecimento {
+    box-shadow: rgba(1, 1, 1, 1) 0px 0px 5px 0px;
+  }
+  
+  ion-slides {
+    height: 50%;
+  }
+  
+  ion-list {
+    background-color: #f4f5f8;
+  }
+  
+  ion-card-content {
+    padding: 0;
+  }
+  
+  ion-card-title {
+    font-size: 18px;
+  }
+  
+  img {
+    -webkit-border-radius: 10%;
+    border-radius: 10%;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
+  }
+  
+  .descricao-produto {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .ellipsify {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    display: inline-block;
+  }
+  

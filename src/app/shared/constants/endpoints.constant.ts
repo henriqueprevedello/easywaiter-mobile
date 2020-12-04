@@ -17,6 +17,7 @@ export class EndpointsConstants {
 
   static readonly PEDIDO = {
     ADICIONAR: URL_CONTROLLER_PEDIDO,
+    ADQUIRIR: URL_CONTROLLER_PEDIDO,
   };
 
   static readonly CLIENTE = {
