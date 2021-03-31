@@ -3,4 +3,5 @@ export class UsuarioDTO {
     senha: string;
     nome: string;
     token?: string;
+    flagEstabelecimento?: boolean;
 }

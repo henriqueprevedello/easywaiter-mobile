@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { EndpointsConstants } from "src/app/shared/constants/endpoints.constant";
 import { PedidoDTO } from "src/app/models/pedido.dto";
+import { ListagemPedidoDTO } from "src/app/models/listagem-pedido.dto";
 
 @Injectable({ providedIn: "root" })
 export class PedidoFacadeApi {
@@ -18,6 +19,14 @@ export class PedidoFacadeApi {
       codigoPedido.toString()
     );
 
-    return this.http.get<PedidoDTO>(EndpointsConstants.PEDIDO.ADQUIRIR, {params});
+    return this.http.get<PedidoDTO>(EndpointsConstants.PEDIDO.ADQUIRIR, {
+      params,
+    });
+  }
+
+  adquirirTodos(): Observable<Array<ListagemPedidoDTO>> {
+    return this.http.get<Array<ListagemPedidoDTO>>(
+      EndpointsConstants.PEDIDO.ADQUIRIR_TODOS
+    );
   }
 }

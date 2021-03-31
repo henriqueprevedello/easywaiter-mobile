@@ -18,6 +18,7 @@ export class EndpointsConstants {
   static readonly PEDIDO = {
     ADICIONAR: URL_CONTROLLER_PEDIDO,
     ADQUIRIR: URL_CONTROLLER_PEDIDO,
+    ADQUIRIR_TODOS: URL_CONTROLLER_PEDIDO.concat('/adquirirTodos'),
   };
 
   static readonly CLIENTE = {

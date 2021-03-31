@@ -55,6 +55,18 @@ const routes: Routes = [
     path: 'pedido',
     loadChildren: () => import('./features/estabelecimento/pedido/pedido.module').then( m => m.PedidoPageModule)
   },
+  {
+    path: 'sem-conexao',
+    loadChildren: () => import('./features/sem-conexao/sem-conexao.module').then( m => m.SemConexaoPageModule)
+  },
+  {
+    path: 'pedidos',
+    loadChildren: () => import('./features/pedidos/pedidos.module').then( m => m.PedidosPageModule)
+  },
+  {
+    path: 'comanda',
+    loadChildren: () => import('./features/comanda/comanda.module').then( m => m.ComandaPageModule)
+  },
 ];
 
 @NgModule({

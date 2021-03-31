@@ -22,34 +22,6 @@
 </ion-header>
 
 <ion-content color="light">
-  <ion-row>
-    <ion-col size="12" class="coluna-simples">
-      <div class="centralizar-icone">
-        <ion-icon
-          class="icone-principal"
-          name="basket"
-          color="primary"
-        ></ion-icon>
-      </div>
-    </ion-col>
-  </ion-row>
-
-  <ion-row *ngIf="quantidadeTotal" class="linha-totais">
-    <ion-col size="5" class="coluna-simples">
-      <div class="centralizar-quantidade">
-        Itens: <a class="totais">{{ quantidadeTotal }}</a>
-      </div>
-    </ion-col>
-    <ion-col size="7" class="coluna-simples">
-      <div class="centralizar-valor">
-        Total:
-        <a class="totais">{{ valorTotal | currency:'R$ ' }}</a>
-      </div>
-    </ion-col>
-  </ion-row>
-
-  <hr />
-
   <p class="ion-text-center">
     {{ quantidadeTotal > 0 ?'Produtos adicionados:': 'Carrinho vazio' }}
   </p>
@@ -77,6 +49,20 @@
       </ion-col>
     </ion-item>
   </ion-list>
+
+  <ion-row *ngIf="quantidadeTotal" class="linha-totais">
+    <ion-col size="5" class="coluna-simples">
+      <div class="centralizar-quantidade">
+        Itens: <a class="totais">{{ quantidadeTotal }}</a>
+      </div>
+    </ion-col>
+    <ion-col size="7" class="coluna-simples">
+      <div class="centralizar-valor">
+        Total:
+        <a class="totais">{{ valorTotal | currency:'R$ ' }}</a>
+      </div>
+    </ion-col>
+  </ion-row>
 
   <div class="fixed-bottom fundo-light">
     <ion-button [disabled]="!quantidadeTotal" (click)="realizarPedido()">

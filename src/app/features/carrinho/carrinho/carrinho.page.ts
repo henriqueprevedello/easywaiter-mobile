@@ -74,7 +74,7 @@ export class CarrinhoPage implements OnInit {
       .pipe(take(1))
       .subscribe(codigoPedido => {
         this.limparCarrinho();
-        this.router.navigate(["/pedido", {codigoPedido}]);
+        this.router.navigate(["/pedidos", {codigoPedido}]);
         
       });
   }

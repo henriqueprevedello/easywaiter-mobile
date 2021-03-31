@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { take } from "rxjs/operators";
 import { PedidoFacade } from "src/app/core/facades/pedido.facade";
 import { PedidoDTO } from "src/app/models/pedido.dto";
 
@@ -13,16 +14,18 @@ export class PedidoPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private pedidoFacade: PedidoFacade
   ) {
-    debugger;
-    const codigoPedido = this.route.snapshot.paramMap.get("codigoPedido");
-
-    this.pedidoFacade.adquirir(+codigoPedido).subscribe((pedido: PedidoDTO) => {
-      debugger;
-      this.pedido = pedido;
-    });
+    this.pedidoFacade
+      .adquirir(+this.route.snapshot.paramMap.get("codigoPedido"))
+      .pipe(take(1))
+      .subscribe((pedido: PedidoDTO) => (this.pedido = pedido));
   }
 
   ngOnInit() {}
+
+  voltarPagina() {
+    this.router.navigate(["/pedidos"]);
+  }
 }

@@ -1,11 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { take } from "rxjs/operators";
+import { of, throwError } from "rxjs";
+import { switchMap, take } from "rxjs/operators";
 import { AutenticacaoService } from "src/app/core/services/autenticacao.service";
 import { ToastHelper } from "src/app/shared/helpers/toast.helper";
 
@@ -56,7 +53,17 @@ export class LoginPage implements OnInit {
     this.loading = true;
     this.autenticacaoService
       .login({ email: this.f.email.value, senha: this.f.password.value })
-      .pipe(take(1))
+      .pipe(
+        switchMap((usuarioLogado) => {
+          if (usuarioLogado.flagEstabelecimento) {
+            return throwError(
+              "Esta conta é de um estabelecimento e não tem acesso ao app!"
+            );
+          }
+          return of(null);
+        }),
+        take(1)
+      )
       .subscribe(
         (data) => {
           this.loginForm.reset();

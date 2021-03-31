@@ -31,4 +31,8 @@ export class RegistroPage implements OnInit {
       }
     );
   }
+
+  voltarPagina() {
+    this.router.navigate(["/login"]);
+  }
 }
