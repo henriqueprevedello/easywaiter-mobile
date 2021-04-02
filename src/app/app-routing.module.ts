@@ -67,6 +67,10 @@ const routes: Routes = [
     path: 'comanda',
     loadChildren: () => import('./features/comanda/comanda.module').then( m => m.ComandaPageModule)
   },
+  {
+    path: 'aguarde-pagamento',
+    loadChildren: () => import('./features/aguarde-pagamento/aguarde-pagamento.module').then( m => m.AguardePagamentoPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,9 +1,29 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
-    <ion-title>comanda</ion-title>
+    <ion-title>Finalizando a comanda</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="voltarPagina()" fill="clear">
+        <ion-icon name="arrow-back" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <section class="detalhes">
+    <ion-card>
+    <header class="ion-text-center">Comanda #999</header>
+    <p class="ion-text-center">Henrique S. Prevedello</p>
+    <p class="ion-text-center"><b>R$ 257,99</b></p>
+    <p class="ion-text-center">Restaurante Velho Casarão</p>
+  </ion-card>
+  </section>
+
+  <section class="pagamento">
+    <header class="ion-text-center">Realizar pagamento:</header>
+    <ion-button (click)="pagarPix()" expand="block">PIX</ion-button>
+    <ion-button (click)="pagarCaixa()" expand="block">Pagar no caixa</ion-button>
+  </section>
+  
 </ion-content>

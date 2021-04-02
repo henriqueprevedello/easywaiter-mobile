@@ -34,7 +34,7 @@
       </ion-col>
     </ion-item>
     <ion-item *ngFor="let pedido of pedidos" color="light">
-      <ion-col size="7">
+      <ion-col size="6">
         <p>{{ pedido.codigoStatus }}</p>
       </ion-col>
 
@@ -44,7 +44,7 @@
         </ion-label>
       </ion-col>
 
-      <ion-col size="3">
+      <ion-col size="4">
         <ion-label>
           <b> {{ pedido.valorTotal | currency: 'R$ ' }}</b>
         </ion-label>
