@@ -1,0 +1,27 @@
+<ion-content color="light">
+  <ion-grid class="ion-align-items-center">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <h3 class="ion-text-center">Pagamento em PIX</h3>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <ion-input [value]="chavePix" readonly class="ion-text-center input-pix"></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+          <ion-button (click)="copiarChavePix()" expand="block">Copiar chave PIX</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+          <ion-button (click)="cancelar()" expand="block">Cancelar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -71,6 +71,10 @@ const routes: Routes = [
     path: 'aguarde-pagamento',
     loadChildren: () => import('./features/aguarde-pagamento/aguarde-pagamento.module').then( m => m.AguardePagamentoPageModule)
   },
+  {
+    path: 'pix-modal',
+    loadChildren: () => import('./features/pagamento/pix-modal/pix-modal.module').then( m => m.PixModalPageModule)
+  },
 ];
 
 @NgModule({

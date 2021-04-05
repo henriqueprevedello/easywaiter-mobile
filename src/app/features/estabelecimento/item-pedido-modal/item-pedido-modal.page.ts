@@ -11,7 +11,6 @@ import { CarrinhoService } from "src/app/core/services/carrinho.service";
 import { ProdutoDTO } from "src/app/models/produto.dto";
 
 @Component({
-  selector: "app-item-pedido-modal",
   templateUrl: "./item-pedido-modal.page.html",
   styleUrls: ["./item-pedido-modal.page.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,

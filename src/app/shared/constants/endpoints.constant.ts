@@ -3,6 +3,7 @@ const URL_EASY_WAITER_SERVER = "http://localhost:3200";
 const URL_CONTROLLER_AUTENTICACAO = `${URL_EASY_WAITER_SERVER}/autenticacao`;
 const URL_CONTROLLER_PRODUTO = `${URL_EASY_WAITER_SERVER}/produto`;
 const URL_CONTROLLER_PEDIDO = `${URL_EASY_WAITER_SERVER}/pedido`;
+const URL_CONTROLLER_COMANDA = `${URL_EASY_WAITER_SERVER}/comanda`;
 const URL_CONTROLLER_CLIENTE = `${URL_EASY_WAITER_SERVER}/cliente`;
 const URL_CONTROLLER_ESTABELECIMENTO = `${URL_EASY_WAITER_SERVER}/estabelecimento`;
 
@@ -19,6 +20,10 @@ export class EndpointsConstants {
     ADICIONAR: URL_CONTROLLER_PEDIDO,
     ADQUIRIR: URL_CONTROLLER_PEDIDO,
     ADQUIRIR_TODOS: URL_CONTROLLER_PEDIDO.concat('/adquirirTodos'),
+  };
+
+  static readonly COMANDA = {
+    ADQUIRIR_ABERTA: URL_CONTROLLER_COMANDA.concat('/adquirirAberta')
   };
 
   static readonly CLIENTE = {
