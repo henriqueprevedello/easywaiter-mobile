@@ -10,4 +10,8 @@ export class ComandaFacade {
   adquirirAberta(): Observable<ComandaClienteDTO> {
     return this.api.adquirirAberta();
   }
+
+  pagamentoRealizado(): Observable<boolean> {
+    return this.api.pagamentoRealizado();
+  }
 }

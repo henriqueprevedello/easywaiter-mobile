@@ -1,13 +1,13 @@
-<ion-content color="primary">
+<ion-content [color]="corFundo">
   <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col>
 
         <ion-row class="ion-justify-content-center">
-          <ion-label><h2>Aguarde, confirmando pagamento</h2></ion-label>
+          <ion-label><h2><b>{{ mensagem }}</b></h2></ion-label>
         </ion-row>
 
-        <ion-row class="ion-justify-content-center">
+        <ion-row class="ion-justify-content-center" *ngIf="spinnerVisivel">
           <ion-spinner color="light" name="crescent"></ion-spinner>
         </ion-row>
 

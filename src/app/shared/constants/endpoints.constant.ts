@@ -23,7 +23,8 @@ export class EndpointsConstants {
   };
 
   static readonly COMANDA = {
-    ADQUIRIR_ABERTA: URL_CONTROLLER_COMANDA.concat('/adquirirAberta')
+    ADQUIRIR_ABERTA: URL_CONTROLLER_COMANDA.concat('/adquirirAberta'),
+    PAGAMENTO_REALIZADO: URL_CONTROLLER_COMANDA.concat('/pagamentoRealizado')
   };
 
   static readonly CLIENTE = {

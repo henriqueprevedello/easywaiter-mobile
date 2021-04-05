@@ -64,9 +64,7 @@ export class CarrinhoPage implements OnInit {
       pedidoItens: this.carrinhoService.adquirir(),
       codigoEstabelecimento: this.estabelecimentoService.estabelecimento
         .codigoEstabelecimento,
-      codigoMesa: this.estabelecimentoService.mesa.id,
-      // !adquirido pelo token
-      codigoCliente: null,
+      codigoMesa: this.estabelecimentoService.mesa.id
     };
 
     this.pedidoFacade

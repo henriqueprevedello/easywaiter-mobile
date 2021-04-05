@@ -11,4 +11,8 @@ export class ComandaFacadeApi {
   adquirirAberta(): Observable<ComandaClienteDTO> {
     return this.http.get<ComandaClienteDTO>(EndpointsConstants.COMANDA.ADQUIRIR_ABERTA);
   }
+
+  pagamentoRealizado(): Observable<boolean> {
+    return this.http.get<boolean>(EndpointsConstants.COMANDA.PAGAMENTO_REALIZADO);
+  }
 }
