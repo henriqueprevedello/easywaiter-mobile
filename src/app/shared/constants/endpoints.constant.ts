@@ -5,6 +5,7 @@ const URL_CONTROLLER_PRODUTO = `${URL_EASY_WAITER_SERVER}/produto`;
 const URL_CONTROLLER_PEDIDO = `${URL_EASY_WAITER_SERVER}/pedido`;
 const URL_CONTROLLER_COMANDA = `${URL_EASY_WAITER_SERVER}/comanda`;
 const URL_CONTROLLER_CLIENTE = `${URL_EASY_WAITER_SERVER}/cliente`;
+const URL_CONTROLLER_CONEXAO = `${URL_EASY_WAITER_SERVER}/conexao`;
 const URL_CONTROLLER_ESTABELECIMENTO = `${URL_EASY_WAITER_SERVER}/estabelecimento`;
 
 export class EndpointsConstants {
@@ -25,6 +26,10 @@ export class EndpointsConstants {
   static readonly COMANDA = {
     ADQUIRIR_ABERTA: URL_CONTROLLER_COMANDA.concat('/adquirirAberta'),
     PAGAMENTO_REALIZADO: URL_CONTROLLER_COMANDA.concat('/pagamentoRealizado')
+  };
+
+  static readonly CONEXAO = {
+    TESTAR: URL_CONTROLLER_CONEXAO,
   };
 
   static readonly CLIENTE = {

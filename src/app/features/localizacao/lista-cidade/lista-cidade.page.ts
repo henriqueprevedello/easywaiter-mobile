@@ -3,6 +3,7 @@ import { IonInfiniteScroll } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { LocalizacaoDTO } from "src/app/models/localizacao.dto";
 import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
+import { LocalizacaoStorageService } from "src/app/core/services/storage/localizacao-storage.service";
 
 @Component({
   selector: "app-lista-cidade",
@@ -19,7 +20,8 @@ export class ListaCidadePage implements OnInit {
 
   constructor(
     private router: Router,
-    private estabelecimentoFacade: EstabelecimentoFacade
+    private estabelecimentoFacade: EstabelecimentoFacade,
+    private localizacaoStorage: LocalizacaoStorageService
   ) {}
 
   ngOnInit() {
@@ -27,7 +29,9 @@ export class ListaCidadePage implements OnInit {
   }
 
   onClick(localizacaoDTO: LocalizacaoDTO) {
-    this.router.navigate(["/lista-estabelecimento", localizacaoDTO]);
+    this.localizacaoStorage.definir(localizacaoDTO);
+
+    this.router.navigate(["/lista-estabelecimento"]);
   }
 
   adquirirCidades() {

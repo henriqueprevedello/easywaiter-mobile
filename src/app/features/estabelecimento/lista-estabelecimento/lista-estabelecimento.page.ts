@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { IonInfiniteScroll } from "@ionic/angular";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
 import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
-import { finalize, switchMap, take } from "rxjs/operators";
+import { take } from "rxjs/operators";
+import { LocalizacaoStorageService } from "src/app/core/services/storage/localizacao-storage.service";
 
 @Component({
   selector: "app-lista-estabelecimento",
@@ -21,14 +22,12 @@ export class ListaEstabelecimentoPage implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private estabelecimentoFacade: EstabelecimentoFacade,
-    private estabelecimentoService: EstabelecimentoService
+    private estabelecimentoService: EstabelecimentoService,
+    private localizacaoStorage: LocalizacaoStorageService
   ) {}
 
   ngOnInit() {
-    // TODO validar se no localstorage tem cidade ou se no this.route.snapshot.paramMap.get("cidade")....
-
     this.adquirirEstabelecimentos();
   }
 
@@ -43,11 +42,10 @@ export class ListaEstabelecimentoPage implements OnInit {
   }
 
   adquirirEstabelecimentos() {
+    const localizacao = this.localizacaoStorage.localizacaoDTO;
+
     this.estabelecimentoFacade
-      .adquirirPorLocalizacao(
-        this.route.snapshot.paramMap.get("cidade"),
-        this.route.snapshot.paramMap.get("estado")
-      )
+      .adquirirPorLocalizacao(localizacao.cidade, localizacao.estado)
       .pipe(take(1))
       .subscribe((estabelecimentos) => {
         this.estabelecimentos = estabelecimentos;

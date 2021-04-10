@@ -23,10 +23,8 @@ export class AguardePagamentoPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // TODO isso aqui nunca para
     this.verificarPagamentoRealizado();
-
-    // TODO deve ser removido
-    setTimeout(() => this.router.navigate(["home"]), 2000);
   }
 
   private verificarPagamentoRealizado() {
