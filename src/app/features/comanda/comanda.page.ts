@@ -31,7 +31,7 @@ export class ComandaPage implements OnInit {
   async pagarPix(): Promise<any> {
     const modal = await this.modalController.create({
       component: PixModalPage,
-      cssClass: "modal-padrao",
+      cssClass: "modal-informativa",
       componentProps: { chavePix: 'Chave PIX Exemplo' },
     });
 

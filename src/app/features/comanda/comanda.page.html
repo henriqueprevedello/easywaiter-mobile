@@ -1,5 +1,5 @@
-<ion-header >
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
     <ion-title>Finalizando a comanda</ion-title>
     <ion-buttons slot="start">
       <ion-button (click)="voltarPagina()" fill="clear">
@@ -9,22 +9,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
-  <section class="detalhes" *ngIf="comanda">
-    <ion-card>
-    <header class="ion-text-center">Comanda #{{ comanda.id }}</header>
-    <p class="ion-text-center">Mesa {{ comanda.numeroMesa }}</p>
-    <p class="ion-text-center">{{ comanda.nomeCliente }}</p>
-    <p class="ion-text-center"><b>{{ comanda.valorTotal | currency:'R$ ' }}</b></p>
-    <p class="ion-text-center">{{ comanda.nomeEstabelecimento }}</p>
-  </ion-card>
-  </section>
-
-  <section class="pagamento">
-    <header class="ion-text-center">Realizar pagamento:</header>
-    <ion-button (click)="pagarPix()" expand="block">PIX</ion-button>
-    <ion-button (click)="pagarCaixa()" expand="block">Pagar no estabelecimento</ion-button>
-  </section>
+<ion-content color="light">
+  <div class="container-flex">
+    
+    <section class="detalhes" *ngIf="comanda" >
+      <ion-card >
+        <header class="ion-text-center">Comanda #{{ comanda.id }}</header>
+        <p class="ion-text-center">Mesa {{ comanda.numeroMesa }}</p>
+        <p class="ion-text-center">{{ comanda.nomeCliente }}</p>
+        <p class="ion-text-center">
+          <b>{{ comanda.valorTotal | currency:'R$ ' }}</b>
+        </p>
+        <p class="ion-text-center">{{ comanda.nomeEstabelecimento }}</p>
+      </ion-card>
+    </section>
   
+    <section class="pagamento">
+      <header class="ion-text-center">Realizar pagamento:</header>
+      <ion-button (click)="pagarPix()" expand="block">PIX</ion-button>
+      <ion-button (click)="pagarCaixa()" expand="block">Pagar no estabelecimento</ion-button>
+    </section>
+
+  </div>
 </ion-content>

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -40,7 +40,7 @@
                     <ion-col size="3" class="ion-text-right">
                       <ion-row class="ion-align-items-center">
                         <ion-col size="12" class="ion-text-right">
-                          <ion-label color="secondary">
+                          <ion-label color="primary">
                             <b class="ellipsify"> {{ produto.valor | currency: 'R$' }}</b>
                           </ion-label>
                         </ion-col>
@@ -48,7 +48,7 @@
                       <ion-row class="ion-align-items-center">
                         <ion-col size="12" class="ion-text-right">
                           <ion-button fill="clear">
-                            <ion-icon name="add"></ion-icon>
+                            <ion-icon name="add" color="primary"></ion-icon>
                           </ion-button>
                         </ion-col>
                       </ion-row>

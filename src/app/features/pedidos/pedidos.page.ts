@@ -40,4 +40,32 @@ export class PedidosPage implements OnInit {
   finalizarComanda() {
     this.router.navigate(["/comanda"]);
   }
+
+  exibirStatus(codigoStatus: number) {
+    switch (codigoStatus) {
+      case 0:
+        return "CANCELADO";
+
+      case 1:
+        return "REALIZADO";
+
+      case 2:
+        return "CONFIRMADO";
+
+      case 3:
+        return "RECUSADO";
+
+      case 4:
+        return "EM_PREPARO";
+
+      case 5:
+        return "EM_ENTREGA";
+
+      case 6:
+        return "ENTREGUE";
+
+      default:
+        return "DESCONHECIDO";
+    }
+  }
 }

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="voltarPagina()" fill="clear">
         <ion-icon name="arrow-back" slot="start"></ion-icon>
@@ -11,7 +11,6 @@
 </ion-header>
 
 <ion-content color="light">
-  <p class="ion-text-center">Meus pedidos realizados:</p>
 
   <ion-list color="light">
     <ion-item color="light">
@@ -35,12 +34,12 @@
     </ion-item>
     <ion-item *ngFor="let pedido of pedidos" color="light">
       <ion-col size="6">
-        <p>{{ pedido.codigoStatus }}</p>
+        <p>{{ exibirStatus(pedido.codigoStatus) }}</p>
       </ion-col>
 
       <ion-col size="2">
         <ion-label>
-          <p>{{ pedido.quantidadeProdutos }}x</p>
+          <p>{{ pedido.quantidadeProdutos }}</p>
         </ion-label>
       </ion-col>
 
@@ -53,12 +52,7 @@
   </ion-list>
 
   <div class="fixed-bottom fundo-light">
-    <ion-button
-      [disabled]="pedidosComStatusPendente"
-      (click)="finalizarComanda()"
-    >
-      Finalizar comanda
-    </ion-button>
+    <ion-button [disabled]="pedidosComStatusPendente" (click)="finalizarComanda()" expand="block"> Finalizar comanda </ion-button>
   </div>
 
 </ion-content>
