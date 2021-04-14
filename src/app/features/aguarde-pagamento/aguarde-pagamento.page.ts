@@ -31,29 +31,23 @@ export class AguardePagamentoPage implements OnInit {
     this.comandaFacade
       .pagamentoRealizado()
       .pipe(take(1))
-      .subscribe(
-        (retorno) => {
-          if (retorno) {
-            this.corFundo = "success";
-            this.mensagem = "Pagamento confirmado!";
-            this.spinnerVisivel = false;
-
-            setTimeout(() => {
-              this.comandaStorageService.limpar();
-
-              this.router.navigate(["home"]);
-
-              this.toastHelper.exibir(
-                "Comanda finalizada, obrigado pela preferência!"
-              );
-            }, 2000);
-
-            return;
-          }
-
+      .subscribe((retorno) => {
+        if (!retorno) {
           setTimeout(() => this.verificarPagamentoRealizado(), 1200);
-        },
-        () => this.router.navigate(["comanda"])
-      );
+
+          return;
+        }
+        
+        this.corFundo = "success";
+        this.mensagem = "Pagamento confirmado!";
+        this.spinnerVisivel = false;
+
+        this.comandaStorageService.limpar();
+        this.toastHelper.exibir(
+          "Comanda finalizada, obrigado pela preferência!"
+        );
+
+        setTimeout(() => this.router.navigate(["/home"]), 2000);
+      });
   }
 }

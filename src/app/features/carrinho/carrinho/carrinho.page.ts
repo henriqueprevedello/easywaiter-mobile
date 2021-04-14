@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { PedidoItemDTO } from "src/app/models/pedido-item.dto";
 import { Router } from "@angular/router";
-import { CarrinhoService } from "src/app/core/services/carrinho.service";
+import { CarrinhoStorageService } from "src/app/core/services/storage/carrinho-storage.service";
 import { PedidoFacade } from "src/app/core/facades/pedido.facade";
 import { PedidoDTO } from "src/app/models/pedido.dto";
-import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
+import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 import { take } from "rxjs/operators";
 import { AutenticacaoService } from "src/app/core/services/autenticacao.service";
 
@@ -18,8 +18,8 @@ export class CarrinhoPage implements OnInit {
   carrinho: Array<PedidoItemDTO> = [];
 
   constructor(
-    private carrinhoService: CarrinhoService,
-    private estabelecimentoService: EstabelecimentoService,
+    private carrinhoService: CarrinhoStorageService,
+    private estabelecimentoService: EstabelecimentoStorageService,
     private autenticacaoService: AutenticacaoService,
     private modalController: ModalController,
     private router: Router,

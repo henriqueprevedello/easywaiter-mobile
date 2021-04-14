@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { IonTextarea, ModalController } from "@ionic/angular";
-import { CarrinhoService } from "src/app/core/services/carrinho.service";
+import { CarrinhoStorageService } from "src/app/core/services/storage/carrinho-storage.service";
 import { ProdutoDTO } from "src/app/models/produto.dto";
 
 @Component({
@@ -22,7 +22,7 @@ export class ItemPedidoModalPage implements OnInit {
   quantidade = 1;
 
   constructor(
-    private storageService: CarrinhoService,
+    private storageService: CarrinhoStorageService,
     private modalController: ModalController,
     private changeDetectorRef: ChangeDetectorRef
   ) {}

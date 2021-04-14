@@ -3,7 +3,7 @@ import { IonInfiniteScroll } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
-import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
+import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 import { take } from "rxjs/operators";
 import { LocalizacaoStorageService } from "src/app/core/services/storage/localizacao-storage.service";
 
@@ -23,7 +23,7 @@ export class ListaEstabelecimentoPage implements OnInit {
   constructor(
     private router: Router,
     private estabelecimentoFacade: EstabelecimentoFacade,
-    private estabelecimentoService: EstabelecimentoService,
+    private estabelecimentoService: EstabelecimentoStorageService,
     private localizacaoStorage: LocalizacaoStorageService
   ) {}
 

@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { IonInfiniteScroll, IonSelect, NavParams } from "@ionic/angular";
-import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
-import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
+import {  Router } from "@angular/router";
+import { IonInfiniteScroll  } from "@ionic/angular";
+import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { MesaDTO } from "src/app/models/mesa.dto";
-import { ToastHelper } from "src/app/shared/helpers/toast.helper";
 
 @Component({
   selector: "app-identificacao-mesa",
@@ -20,17 +18,15 @@ export class IdentificacaoMesaPage implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private toastHelper: ToastHelper,
-    private estabelecimentoService: EstabelecimentoService
+    private estabelecimentoStorage: EstabelecimentoStorageService
   ) {}
 
   ngOnInit() {
-    this.estabelecimento = this.estabelecimentoService.estabelecimento;
+    this.estabelecimento = this.estabelecimentoStorage.estabelecimento;
   }
 
   onClick(mesaDTO: MesaDTO) {
-    this.estabelecimentoService.definirMesa(mesaDTO);
+    this.estabelecimentoStorage.definirMesa(mesaDTO);
     this.router.navigate(["/estabelecimento"]);
   }
 

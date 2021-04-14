@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { MesaDTO } from "src/app/models/mesa.dto";
 
@@ -7,7 +6,7 @@ const ESTABELECIMENTO_ATUAL = "estabelecimentoAtual";
 const MESA_ATUAL = "mesaAtual";
 
 @Injectable({ providedIn: "root" })
-export class EstabelecimentoService {
+export class EstabelecimentoStorageService {
   constructor() {}
 
   get estabelecimento(): EstabelecimentoDTO {

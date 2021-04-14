@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { PedidoItemDTO } from "src/app/models/pedido-item.dto";
 import { Router } from "@angular/router";
-import { CarrinhoService } from "src/app/core/services/carrinho.service";
+import { CarrinhoStorageService } from "src/app/core/services/storage/carrinho-storage.service";
 import { ModalController } from "@ionic/angular";
 import { ItemPedidoModalPage } from "../item-pedido-modal/item-pedido-modal.page";
 import { ProdutoDTO } from "src/app/models/produto.dto";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
-import { EstabelecimentoService } from "src/app/core/services/estabelecimento.service";
+import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 
 @Component({
   selector: "app-estabelecimento",
@@ -19,10 +19,10 @@ export class EstabelecimentoPage implements OnInit {
   quantidadeItens: number;
 
   constructor(
-    private storageService: CarrinhoService,
+    private storageService: CarrinhoStorageService,
     private modalController: ModalController,
     private router: Router,
-    private estabelecimentoService: EstabelecimentoService
+    private estabelecimentoService: EstabelecimentoStorageService
   ) {
     this.quantidadeItens = storageService.quantidade;
   }

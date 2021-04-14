@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { IonSlides } from "@ionic/angular";
 import { take, tap } from "rxjs/operators";
 import { ComandaFacade } from "../core/facades/comanda.facade";
+import { CarrinhoStorageService } from "../core/services/storage/carrinho-storage.service";
 import { ComandaStorageService } from "../core/services/storage/comanda-storage.service";
 import { LocalizacaoStorageService } from "../core/services/storage/localizacao-storage.service";
 import { ToastHelper } from "../shared/helpers/toast.helper";
@@ -12,7 +13,7 @@ import { ToastHelper } from "../shared/helpers/toast.helper";
   templateUrl: "home.page.html",
   styleUrls: ["home.page.scss"],
 })
-export class HomePage implements OnInit, AfterViewInit {
+export class HomePage implements OnInit {
   @ViewChild("slideWithNav", { static: false }) slideWithNav: IonSlides;
 
   ids: any;
@@ -30,7 +31,8 @@ export class HomePage implements OnInit, AfterViewInit {
     private comandaFacade: ComandaFacade,
     private comandaStorage: ComandaStorageService,
     private toast: ToastHelper,
-    private localizacaoStorage: LocalizacaoStorageService
+    private localizacaoStorage: LocalizacaoStorageService,
+    private carrinhoStorage: CarrinhoStorageService
   ) {
     this.ids = [
       {
@@ -51,9 +53,7 @@ export class HomePage implements OnInit, AfterViewInit {
     ];
   }
 
-  ngOnInit() {}
-
-  ngAfterViewInit() {
+  ngOnInit() {
     this.comandaFacade
       .adquirirAberta()
       .pipe(
@@ -74,8 +74,14 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   clickIniciarPedido() {
-    if(this.comandaStorage.comandaDTO){
+    if (this.comandaStorage.comandaDTO) {
       this.router.navigate(["/pedidos"]);
+
+      return;
+    }
+
+    if (this.carrinhoStorage.adquirir().length > 0) {
+      this.router.navigate(["/estabelecimento"]);
 
       return;
     }
@@ -94,6 +100,14 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   clickTrocarLocalizacao() {
+    if (this.comandaStorage.comandaDTO) {
+      this.toast.exibir("Você ainda possui uma comanda em aberto");
+
+      return;
+    }
+
+    this.carrinhoStorage.limpar();
+
     this.router.navigate(["/lista-cidade"]);
   }
 

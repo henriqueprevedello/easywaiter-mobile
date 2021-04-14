@@ -7,7 +7,7 @@ const CARRINHO = "carrinho";
 @Injectable({
   providedIn: "root",
 })
-export class CarrinhoService {
+export class CarrinhoStorageService {
   private carrinhoAtualSubject: BehaviorSubject<Array<PedidoItemDTO>>;
   private quantidadeAtualSubject: BehaviorSubject<number>;
 
