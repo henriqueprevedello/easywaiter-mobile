@@ -5,7 +5,9 @@ const URL_CONTROLLER_PRODUTO = `${URL_EASY_WAITER_SERVER}/produto`;
 const URL_CONTROLLER_PEDIDO = `${URL_EASY_WAITER_SERVER}/pedido`;
 const URL_CONTROLLER_COMANDA = `${URL_EASY_WAITER_SERVER}/comanda`;
 const URL_CONTROLLER_CLIENTE = `${URL_EASY_WAITER_SERVER}/cliente`;
+const URL_CONTROLLER_CATEGORIA = `${URL_EASY_WAITER_SERVER}/categoria`;
 const URL_CONTROLLER_CONEXAO = `${URL_EASY_WAITER_SERVER}/conexao`;
+const URL_CONTROLLER_ARQUIVO = `${URL_EASY_WAITER_SERVER}/arquivo`;
 const URL_CONTROLLER_ESTABELECIMENTO = `${URL_EASY_WAITER_SERVER}/estabelecimento`;
 
 export class EndpointsConstants {
@@ -15,6 +17,11 @@ export class EndpointsConstants {
 
   static readonly PRODUTO = {
     ADQUIRIR: URL_CONTROLLER_PRODUTO,
+  };
+
+  static readonly ARQUIVO = {
+    UPLOAD: URL_CONTROLLER_ARQUIVO.concat('/upload'),
+    DOWNLOAD: URL_CONTROLLER_ARQUIVO.concat('/'),
   };
 
   static readonly PEDIDO = {
@@ -34,6 +41,10 @@ export class EndpointsConstants {
 
   static readonly CLIENTE = {
     REGISTRAR: URL_CONTROLLER_CLIENTE,
+  };
+
+  static readonly CATEGORIA = {
+    ADQUIRIR: URL_CONTROLLER_CATEGORIA.concat('/adquirirCategoriasEProdutosDisponiveis'),
   };
 
   static readonly ESTABELECIMENTO = {

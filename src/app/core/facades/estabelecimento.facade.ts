@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { EstabelecimentoFacadeApi } from "./apis/estabelecimento.facade.api";
 import { LocalizacaoDTO } from "src/app/models/localizacao.dto";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
+import { map } from "rxjs/operators";
 
 @Injectable({ providedIn: "root" })
 export class EstabelecimentoFacade {

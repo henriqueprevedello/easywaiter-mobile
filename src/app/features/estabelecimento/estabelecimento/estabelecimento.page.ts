@@ -7,6 +7,8 @@ import { ItemPedidoModalPage } from "../item-pedido-modal/item-pedido-modal.page
 import { ProdutoDTO } from "src/app/models/produto.dto";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
+import { CategoriaProdutosStorageService } from "src/app/core/services/storage/categoria-produtos-storage.service";
+import { CategoriaDTO } from "src/app/models/categoria.dto";
 
 @Component({
   selector: "app-estabelecimento",
@@ -14,7 +16,7 @@ import { EstabelecimentoStorageService } from "src/app/core/services/storage/est
   styleUrls: ["./estabelecimento.page.scss"],
 })
 export class EstabelecimentoPage implements OnInit {
-  estabelecimento: EstabelecimentoDTO;
+  categorias: Array<CategoriaDTO>;
   carrinho: Array<PedidoItemDTO> = [];
   quantidadeItens: number;
 
@@ -22,7 +24,7 @@ export class EstabelecimentoPage implements OnInit {
     private storageService: CarrinhoStorageService,
     private modalController: ModalController,
     private router: Router,
-    private estabelecimentoService: EstabelecimentoStorageService
+    private categoriaProdutosStorageService: CategoriaProdutosStorageService
   ) {
     this.quantidadeItens = storageService.quantidade;
   }
@@ -31,7 +33,7 @@ export class EstabelecimentoPage implements OnInit {
     this.router.events.subscribe(
       () => (this.quantidadeItens = this.storageService.quantidade)
     );
-    this.estabelecimento = this.estabelecimentoService.estabelecimento;
+    this.categorias = this.categoriaProdutosStorageService.categorias;
 
     this.carrinho = this.storageService.adquirir();
 

@@ -26,6 +26,8 @@ export class EstabelecimentoStorageService {
   }
 
   definir(estabelecimentoDTO: EstabelecimentoDTO): void {
+    estabelecimentoDTO.categorias = null;
+
     localStorage.setItem(
       ESTABELECIMENTO_ATUAL,
       JSON.stringify(estabelecimentoDTO)

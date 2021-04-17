@@ -4,8 +4,10 @@ import { Router } from "@angular/router";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
 import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
-import { take } from "rxjs/operators";
+import { switchMap, take, tap } from "rxjs/operators";
 import { LocalizacaoStorageService } from "src/app/core/services/storage/localizacao-storage.service";
+import { CategoriaProdutosStorageService } from "src/app/core/services/storage/categoria-produtos-storage.service";
+import { CategoriaFacade } from "src/app/core/facades/categoria.facade";
 
 @Component({
   selector: "app-lista-estabelecimento",
@@ -24,6 +26,8 @@ export class ListaEstabelecimentoPage implements OnInit {
     private router: Router,
     private estabelecimentoFacade: EstabelecimentoFacade,
     private estabelecimentoService: EstabelecimentoStorageService,
+    private categoriaFacade: CategoriaFacade,
+    private categoriaProdutosStorage: CategoriaProdutosStorageService,
     private localizacaoStorage: LocalizacaoStorageService
   ) {}
 
@@ -34,11 +38,20 @@ export class ListaEstabelecimentoPage implements OnInit {
   onClick(estabelecimentoDTO: EstabelecimentoDTO) {
     this.estabelecimentoFacade
       .adquirirPorCodigo(estabelecimentoDTO.codigoEstabelecimento)
-      .pipe(take(1))
-      .subscribe((estabelecimentoSalvar) => {
-        this.estabelecimentoService.definir(estabelecimentoSalvar);
-        this.router.navigate(["/identificacao-mesa"]);
-      });
+      .pipe(
+        tap((estabelecimentoSalvar) => {
+          this.estabelecimentoService.definir(estabelecimentoSalvar);
+          this.router.navigate(["/identificacao-mesa"]);
+        }),
+        switchMap((estabelecimento) =>
+          this.categoriaFacade.adquirirCategoriasEProdutosDisponiveis(
+            estabelecimento.codigoEstabelecimento
+          )
+        ),
+        tap((categorias) => this.categoriaProdutosStorage.definir(categorias)),
+        take(1)
+      )
+      .subscribe();
   }
 
   adquirirEstabelecimentos() {

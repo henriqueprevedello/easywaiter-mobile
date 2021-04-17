@@ -80,7 +80,7 @@ export class HomePage implements OnInit {
       return;
     }
 
-    if (this.carrinhoStorage.adquirir().length > 0) {
+    if (this.carrinhoStorage.adquirir()) {
       this.router.navigate(["/estabelecimento"]);
 
       return;
