@@ -7,7 +7,6 @@ import { PedidoFacade } from "src/app/core/facades/pedido.facade";
 import { PedidoDTO } from "src/app/models/pedido.dto";
 import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 import { take } from "rxjs/operators";
-import { AutenticacaoService } from "src/app/core/services/autenticacao.service";
 
 @Component({
   selector: "app-carrinho",
@@ -20,7 +19,6 @@ export class CarrinhoPage implements OnInit {
   constructor(
     private carrinhoService: CarrinhoStorageService,
     private estabelecimentoService: EstabelecimentoStorageService,
-    private autenticacaoService: AutenticacaoService,
     private modalController: ModalController,
     private router: Router,
     private pedidoFacade: PedidoFacade

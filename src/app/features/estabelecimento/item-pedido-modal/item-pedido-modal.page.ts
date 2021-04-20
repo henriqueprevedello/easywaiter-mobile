@@ -44,6 +44,7 @@ export class ItemPedidoModalPage implements OnInit {
     this.storageService.adicionar({
       produto: this.produto,
       quantidade: this.quantidade,
+      observacao: this.observacao.value
     });
 
     this.changeDetectorRef.detectChanges();
