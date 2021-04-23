@@ -58,15 +58,17 @@ export class HomePage implements OnInit {
       .adquirirAberta()
       .pipe(
         tap((comandaAberta) => {
-          if (comandaAberta) {
-            this.comandaStorage.definir(comandaAberta);
-
-            this.router.navigate(["/pedidos"]);
+          if (!comandaAberta) {
+            this.comandaStorage.limpar();
 
             return;
           }
 
-          this.comandaStorage.limpar();
+          this.comandaStorage.definir(comandaAberta);
+
+          this.router.navigate(
+            comandaAberta.dataFechamento ? ["/aguarde-pagamento"] : ["/pedidos"]
+          );
         }),
         take(1)
       )
