@@ -1,4 +1,3 @@
-import { CategoriaDTO } from "./categoria.dto";
 import { PedidoItemDTO } from "./pedido-item.dto";
 
 export interface PedidoDTO {

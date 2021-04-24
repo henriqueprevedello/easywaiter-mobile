@@ -14,4 +14,8 @@ export class ComandaFacade {
   pagamentoRealizado(): Observable<boolean> {
     return this.api.pagamentoRealizado();
   }
+
+  pagar():Observable<void> {
+    return this.api.pagar();
+  }
 }

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { ToastHelper } from "src/app/shared/helpers/toast.helper";
 
@@ -12,7 +11,6 @@ export class PixModalPage implements OnInit {
   @Input() chavePix: string;
 
   constructor(
-    private router: Router,
     private modalController: ModalController,
     private toastHelper: ToastHelper
   ) {}
@@ -24,12 +22,10 @@ export class PixModalPage implements OnInit {
 
     this.toastHelper.exibir("Chave PIX copiada com sucesso!");
 
-    this.modalController.dismiss();
-
-    this.router.navigate(["/aguarde-pagamento"]);
+    this.modalController.dismiss(true);
   }
 
   cancelar(){
-    this.modalController.dismiss();
+    this.modalController.dismiss(false);
   }
 }

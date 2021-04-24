@@ -15,4 +15,8 @@ export class ComandaFacadeApi {
   pagamentoRealizado(): Observable<boolean> {
     return this.http.get<boolean>(EndpointsConstants.COMANDA.PAGAMENTO_REALIZADO);
   }
+
+  pagar(){
+    return this.http.post<void>(EndpointsConstants.COMANDA.PAGAR, null);
+  }
 }
