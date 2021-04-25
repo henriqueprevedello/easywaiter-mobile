@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InterceptadorJwt } from './core/helpers/interceptador-jwt';
 import { InterceptadorErro } from './core/helpers/interceptador-erro';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { InterceptadorErro } from './core/helpers/interceptador-erro';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorJwt, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErro, multi: true },
+    Clipboard,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

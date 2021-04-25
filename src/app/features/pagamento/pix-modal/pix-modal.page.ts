@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 import { ToastHelper } from "src/app/shared/helpers/toast.helper";
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @Component({
   selector: "app-pix-modal",
@@ -12,13 +14,17 @@ export class PixModalPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private toastHelper: ToastHelper
+    private toastHelper: ToastHelper,
+    private estabelecimentoStorage: EstabelecimentoStorageService,
+    private clipboard: Clipboard
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.chavePix = this.estabelecimentoStorage.estabelecimento.chavePix;
+  }
 
   copiarChavePix() {
-    // TODO copiar valor para o clipboard do dispositivo
+    this.clipboard.copy(this.chavePix);
 
     this.toastHelper.exibir("Chave PIX copiada com sucesso!");
 

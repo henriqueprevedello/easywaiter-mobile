@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
-import { of } from "rxjs";
-import { switchMap, take, tap } from "rxjs/operators";
+import {  take } from "rxjs/operators";
 import { ComandaFacade } from "src/app/core/facades/comanda.facade";
 import { ComandaStorageService } from "src/app/core/services/storage/comanda-storage.service";
+import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 import { ComandaClienteDTO } from "src/app/models/comanda.dto";
 import { PixModalPage } from "../pagamento/pix-modal/pix-modal.page";
 
@@ -15,16 +15,19 @@ import { PixModalPage } from "../pagamento/pix-modal/pix-modal.page";
 })
 export class ComandaPage implements OnInit {
   comanda: ComandaClienteDTO;
+  possuiChavePix = false;
 
   constructor(
     private router: Router,
     private modalController: ModalController,
     private comandaStorage: ComandaStorageService,
-    private comandaFacade: ComandaFacade
+    private comandaFacade: ComandaFacade,
+    private estabelecimentoStorage: EstabelecimentoStorageService
   ) {}
 
   ngOnInit() {
     this.comanda = this.comandaStorage.comandaDTO;
+    this.possuiChavePix = this.estabelecimentoStorage.estabelecimento.chavePix.length > 0;
   }
 
   voltarPagina() {

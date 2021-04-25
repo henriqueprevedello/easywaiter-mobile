@@ -6,6 +6,7 @@ export interface EstabelecimentoDTO {
   nome: string;
   descricao: string;
   numeroTelefone: string;
+  chavePix: string;
   cnpj: string;
   estado: string;
   cidade: string;

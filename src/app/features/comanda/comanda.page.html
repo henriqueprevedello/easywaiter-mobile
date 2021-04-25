@@ -26,7 +26,7 @@
   
     <section class="pagamento">
       <header class="ion-text-center">Realizar pagamento:</header>
-      <ion-button (click)="pagarPix()" expand="block">PIX</ion-button>
+      <ion-button (click)="pagarPix()" expand="block" *ngIf="possuiChavePix">PIX</ion-button>
       <ion-button (click)="pagar()" expand="block">Pagar no estabelecimento</ion-button>
     </section>
 
