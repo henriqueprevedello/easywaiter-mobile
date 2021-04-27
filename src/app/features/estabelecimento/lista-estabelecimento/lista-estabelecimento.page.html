@@ -12,7 +12,7 @@
 
     <ion-item *ngFor="let estabelecimento of estabelecimentos" (click)="onClick(estabelecimento)">
       <ion-avatar slot="start">
-        <img src="https://www.gravatar.com/avatar/1?d=monsterid&f=y" />
+        <img src="{{ estabelecimento.imagem }}" />
       </ion-avatar>
 
       <h4>{{estabelecimento.nome}}</h4>

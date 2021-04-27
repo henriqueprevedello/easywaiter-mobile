@@ -4,17 +4,18 @@ import { Router } from "@angular/router";
 import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoFacade } from "src/app/core/facades/estabelecimento.facade";
 import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
-import { switchMap, take, tap } from "rxjs/operators";
+import { map, switchMap, take, tap } from "rxjs/operators";
 import { LocalizacaoStorageService } from "src/app/core/services/storage/localizacao-storage.service";
 import { CategoriaProdutosStorageService } from "src/app/core/services/storage/categoria-produtos-storage.service";
 import { CategoriaFacade } from "src/app/core/facades/categoria.facade";
+import { ArquivoFacade } from "src/app/core/facades/arquivo.facade";
 
 @Component({
   selector: "app-lista-estabelecimento",
   templateUrl: "./lista-estabelecimento.page.html",
   styleUrls: ["./lista-estabelecimento.page.scss"],
 })
-export class ListaEstabelecimentoPage implements OnInit {
+export class ListaEstabelecimentoPage {
   @ViewChild(IonInfiniteScroll) infiniteScrollView: IonInfiniteScroll;
 
   private estabelecimentosBuscados: Array<EstabelecimentoDTO> = [];
@@ -28,10 +29,9 @@ export class ListaEstabelecimentoPage implements OnInit {
     private estabelecimentoService: EstabelecimentoStorageService,
     private categoriaFacade: CategoriaFacade,
     private categoriaProdutosStorage: CategoriaProdutosStorageService,
-    private localizacaoStorage: LocalizacaoStorageService
-  ) {}
-
-  ngOnInit() {
+    private localizacaoStorage: LocalizacaoStorageService,
+    private arquivoFacade: ArquivoFacade
+  ) {
     this.adquirirEstabelecimentos();
   }
 
@@ -59,7 +59,16 @@ export class ListaEstabelecimentoPage implements OnInit {
 
     this.estabelecimentoFacade
       .adquirirPorLocalizacao(localizacao.cidade, localizacao.estado)
-      .pipe(take(1))
+      .pipe(
+        map((estabelecimentos) => {
+          estabelecimentos.forEach(
+            (e) => (e.imagem = this.arquivoFacade.adquirirURLImagem(e.imagem))
+          );
+
+          return estabelecimentos;
+        }),
+        take(1)
+      )
       .subscribe((estabelecimentos) => {
         this.estabelecimentos = estabelecimentos;
         this.estabelecimentosBuscados = estabelecimentos;

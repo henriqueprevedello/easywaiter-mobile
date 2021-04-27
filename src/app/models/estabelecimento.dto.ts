@@ -10,6 +10,7 @@ export interface EstabelecimentoDTO {
   cnpj: string;
   estado: string;
   cidade: string;
+  imagem: string;
   mesas: Array<MesaDTO>;
   categorias: Array<CategoriaDTO>;
 }
