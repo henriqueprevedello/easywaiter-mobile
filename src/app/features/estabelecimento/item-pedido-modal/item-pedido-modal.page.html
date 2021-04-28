@@ -52,12 +52,23 @@
     <ion-row class="linha-adicionar">
       <ion-col>
         <ion-button
-          class="botao-finalizar"
           color="success"
           expand="block"
           (click)="adicionarAoCarrinho()"
         >
           Adicionar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button
+          color="medium"
+          expand="block"
+          (click)="cancelar()"
+        >
+          Cancelar
         </ion-button>
       </ion-col>
     </ion-row>
