@@ -2,13 +2,15 @@
   <ion-img [src]="produto.imagem"></ion-img>
 
   <div class="container">
-    <ion-row class="linha-descricao">
+    <ion-row>
       <p class="nome-produto">{{ produto.nome }}</p>
-
-      <p class="descricao-produto">{{ produto.descricao }}</p>
     </ion-row>
 
     <ion-row>
+      <p class="descricao-produto">{{ produto.descricao }}</p>
+    </ion-row>
+
+    <ion-row class="linha-quantidade">
       <div class="botoes-quantidade">
         <ion-row>
           <ion-button fill="clear" (click)="diminuirQuantidade()">
@@ -38,7 +40,7 @@
       </div>
     </ion-row>
 
-    <ion-row>
+    <ion-row class="linha-observacao">
       <ion-textarea
         class="ion-text-center"
         #observacao
@@ -47,14 +49,15 @@
       </ion-textarea>
     </ion-row>
 
-    <ion-row>
-      <ion-col size="12">
+    <ion-row class="linha-adicionar">
+      <ion-col>
         <ion-button
           class="botao-finalizar"
           color="success"
+          expand="block"
           (click)="adicionarAoCarrinho()"
         >
-          Adicionador
+          Adicionar
         </ion-button>
       </ion-col>
     </ion-row>
