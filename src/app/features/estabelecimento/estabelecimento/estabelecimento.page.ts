@@ -43,7 +43,7 @@ export class EstabelecimentoPage implements OnInit {
   async adicionarAoCarrinho(produto: ProdutoDTO): Promise<any> {
     const modal = await this.modalController.create({
       component: ItemPedidoModalPage,
-      cssClass: "modal-padrao",
+      cssClass: "modal-tela-cheia",
       componentProps: { produto: produto },
     });
 

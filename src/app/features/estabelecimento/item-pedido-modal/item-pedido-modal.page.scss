@@ -1,57 +1,52 @@
-ion-img {
-  height: 20%;
-  width: auto;
+.container {
+  padding: 20px;
 }
 
-ion-card-title {
-  font-size: 24px;
-  font-weight: 900;
+ion-col {
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.botao-finalizar {
-  width: 100%;
+.linha-descricao {
+  margin-bottom: 30px;
 }
 
-.centralizar-botoes {
-  margin: 0 auto;
-  width: 56px;
+.nome-produto {
+  font-weight: bolder;
+  font-size: 20px;
+  margin: 10px 0;
 }
 
-.centralizar-quantidade {
-  margin: 0 auto;
-  width: 51px;
-  font-size: 25px;
-  font-weight: 900;
+.descricao-produto {
+  color: gray;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.valor-total {
+  width: calc(100% - 154.98px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
   p {
+    font-size: 22px;
+    font-weight: bold;
     margin: 0;
   }
 }
 
-h3 {
-  margin: 0;
-  padding: 0;
-}
+.botoes-quantidade {
+  background-color: lightgray;
+  border-radius: 20px;
 
-ion-textarea {
-  background-color: moccasin;
-  border-radius: 6px;
-  width: 100%;
-  padding: 2px;
-  color: black;
-}
+  .quantidade {
+    width: 17.8;
+    text-align: center;
 
-// nao ta usando
-hr {
-  max-width: 80%;
-  border-top: 1px solid rgba(255, 255, 255, 0.65);
-  display: block;
-  margin: 4px auto;
-}
-
-.label-valor {
-  background-color: rgba(116, 116, 116, 0.3);
-  width: auto;
-  font-size: 30px;
-  font-weight: 700;
+    p {
+      margin: 17px 0;
+    }
+  }
+  
 }
