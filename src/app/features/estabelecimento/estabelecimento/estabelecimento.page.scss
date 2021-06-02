@@ -35,3 +35,12 @@ ion-card-title {
   max-width: 100%;
   display: inline-block;
 }
+
+img{
+  width: auto;
+  margin: auto;
+  display: block;
+  -webkit-border-radius: 10%;
+  border-radius: 10%;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.05);
+}
