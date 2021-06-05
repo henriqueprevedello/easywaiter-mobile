@@ -6,7 +6,8 @@ import { CarrinhoStorageService } from "src/app/core/services/storage/carrinho-s
 import { PedidoFacade } from "src/app/core/facades/pedido.facade";
 import { PedidoDTO } from "src/app/models/pedido.dto";
 import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
-import { take } from "rxjs/operators";
+import { switchMap, take } from "rxjs/operators";
+import { ComandaFacade } from "src/app/core/facades/comanda.facade";
 
 @Component({
   selector: "app-carrinho",
@@ -20,13 +21,16 @@ export class CarrinhoPage implements OnInit {
     private carrinhoService: CarrinhoStorageService,
     private estabelecimentoService: EstabelecimentoStorageService,
     private modalController: ModalController,
+    private comandaFacade: ComandaFacade,
     private router: Router,
     private pedidoFacade: PedidoFacade
   ) {
-    this.carrinho = this.carrinhoService.adquirir();
+    
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.carrinho = this.carrinhoService.adquirir();
+  }
 
   adicionar(pedidoItemDTO: PedidoItemDTO) {
     this.carrinhoService.adicionar(pedidoItemDTO);
@@ -57,21 +61,22 @@ export class CarrinhoPage implements OnInit {
   }
 
   realizarPedido() {
-  
     const pedidoDTO: PedidoDTO = {
       pedidoItens: this.carrinhoService.adquirir(),
-      codigoEstabelecimento: this.estabelecimentoService.estabelecimento
-        .codigoEstabelecimento,
-      codigoMesa: this.estabelecimentoService.mesa.id
+      codigoEstabelecimento:
+        this.estabelecimentoService.estabelecimento.codigoEstabelecimento,
+      codigoMesa: this.estabelecimentoService.mesa.id,
     };
 
     this.pedidoFacade
       .adicionar(pedidoDTO)
-      .pipe(take(1))
-      .subscribe(codigoPedido => {
+      .pipe(
+        switchMap(() => this.comandaFacade.adquirirAberta()),
+        take(1)
+      )
+      .subscribe((codigoPedido) => {
         this.limparCarrinho();
-        this.router.navigate(["/pedidos", {codigoPedido}]);
-        
+        this.router.navigate(["/pedidos", { codigoPedido }]);
       });
   }
 }

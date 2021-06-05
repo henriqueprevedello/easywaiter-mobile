@@ -11,48 +11,30 @@
 </ion-header>
 
 <ion-content color="light">
+  <section class="detalhes" *ngFor="let pedido of pedidos" >
+    <ion-card>
+      <h5 class="ion-text-center">Pedido #{{ pedido.id }}</h5>
+      <p class="ion-text-center" [style]="'font-weight: 800; color: '.concat(adquirirCorCard(pedido.codigoStatus))">
+        {{ exibirStatus(pedido.codigoStatus) }}
+      </p>
+      <p class="ion-text-center">Produtos: {{ pedido.quantidadeProdutos }}</p>
+      <p class="valor-total ion-text-center" *ngIf="pedido.codigoStatus >= 2">
+        <b>{{ pedido.valorTotal | currency: 'R$ ' }}</b>
+      </p>
+    </ion-card>
+  </section>
 
-  <ion-list color="light">
-    <ion-item color="light">
-      <ion-col size="4">
-        <ion-label>
-          <p>Status</p>
-        </ion-label>
-      </ion-col>
-
-      <ion-col size="5">
-        <ion-label>
-          <p>Quantidade de itens</p>
-        </ion-label>
-      </ion-col>
-
-      <ion-col size="3">
-        <ion-label>
-          <p>Valor</p>
-        </ion-label>
-      </ion-col>
-    </ion-item>
-    <ion-item *ngFor="let pedido of pedidos" color="light">
-      <ion-col size="6">
-        <p>{{ exibirStatus(pedido.codigoStatus) }}</p>
-      </ion-col>
-
-      <ion-col size="2">
-        <ion-label>
-          <p>{{ pedido.quantidadeProdutos }}</p>
-        </ion-label>
-      </ion-col>
-
-      <ion-col size="4">
-        <ion-label>
-          <b> {{ pedido.valorTotal | currency: 'R$ ' }}</b>
-        </ion-label>
-      </ion-col>
-    </ion-item>
-  </ion-list>
+  <br>
+  <br>
+  <br>
 
   <div class="fixed-bottom fundo-light">
-    <ion-button [disabled]="pedidosComStatusPendente" (click)="finalizarComanda()" expand="block"> Finalizar comanda </ion-button>
+    <ion-button
+      [disabled]="pedidosComStatusPendente"
+      (click)="finalizarComanda()"
+      expand="block"
+    >
+      Finalizar comanda
+    </ion-button>
   </div>
-
 </ion-content>

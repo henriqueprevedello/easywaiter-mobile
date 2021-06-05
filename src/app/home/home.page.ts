@@ -1,7 +1,8 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { IonSlides } from "@ionic/angular";
-import { take, tap } from "rxjs/operators";
+import { from } from "rxjs";
+import { switchMap, take, tap } from "rxjs/operators";
 import { ComandaFacade } from "../core/facades/comanda.facade";
 import { CarrinhoStorageService } from "../core/services/storage/carrinho-storage.service";
 import { ComandaStorageService } from "../core/services/storage/comanda-storage.service";
@@ -57,19 +58,11 @@ export class HomePage implements OnInit {
     this.comandaFacade
       .adquirirAberta()
       .pipe(
-        tap((comandaAberta) => {
-          if (!comandaAberta) {
-            this.comandaStorage.limpar();
-
-            return;
-          }
-
-          this.comandaStorage.definir(comandaAberta);
-
-          this.router.navigate(
+        switchMap((comandaAberta) => 
+          from(this.router.navigate(
             comandaAberta.dataFechamento ? ["/aguarde-pagamento"] : ["/pedidos"]
-          );
-        }),
+          ))
+        ),
         take(1)
       )
       .subscribe();

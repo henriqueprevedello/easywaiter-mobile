@@ -5,7 +5,7 @@ import { ComandaClienteDTO } from "src/app/models/comanda.dto";
 const COMANDA = "comanda";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class ComandaStorageService {
   private comandaAtualSubject: BehaviorSubject<ComandaClienteDTO>;
@@ -14,7 +14,7 @@ export class ComandaStorageService {
     this.atualizarSubject();
   }
 
-  private atualizarSubject(){
+  private atualizarSubject() {
     this.comandaAtualSubject = new BehaviorSubject<ComandaClienteDTO>(
       JSON.parse(localStorage.getItem(COMANDA))
     );
@@ -36,7 +36,7 @@ export class ComandaStorageService {
 
   limpar() {
     localStorage.removeItem(COMANDA);
-    
+
     this.atualizarSubject();
   }
 }

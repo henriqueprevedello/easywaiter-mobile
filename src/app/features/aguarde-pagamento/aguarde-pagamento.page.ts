@@ -41,13 +41,12 @@ export class AguardePagamentoPage implements OnInit {
         this.corFundo = "success";
         this.mensagem = "Pagamento confirmado!";
         this.spinnerVisivel = false;
-
         this.comandaStorageService.limpar();
         this.toastHelper.exibir(
           "Comanda finalizada, obrigado pela preferência!"
         );
 
-        setTimeout(() => this.router.navigate(["/home"]), 2000);
+        setTimeout(() => this.router.navigate(['/home']), 2000);
       });
   }
 }

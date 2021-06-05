@@ -9,6 +9,7 @@ import { EstabelecimentoDTO } from "src/app/models/estabelecimento.dto";
 import { EstabelecimentoStorageService } from "src/app/core/services/storage/estabelecimento-storage.service";
 import { CategoriaProdutosStorageService } from "src/app/core/services/storage/categoria-produtos-storage.service";
 import { CategoriaDTO } from "src/app/models/categoria.dto";
+import { from } from "rxjs";
 
 @Component({
   selector: "app-estabelecimento",
@@ -55,6 +56,6 @@ export class EstabelecimentoPage implements OnInit {
   }
 
   async abrirCarrinho() {
-    this.router.navigate(["carrinho"]);
+    from(this.router.navigate(['/carrinho']));
   }
 }
